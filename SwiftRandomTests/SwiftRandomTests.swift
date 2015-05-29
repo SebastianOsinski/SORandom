@@ -35,3 +35,4 @@ class SwiftRandomTests: XCTestCase {
     }
     
 }
+    

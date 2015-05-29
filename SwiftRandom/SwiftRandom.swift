@@ -158,6 +158,22 @@ public struct SwiftRandom {
         return randomSample
     }
     
+    public static func samplingWithReplacementFromArray<T>(arrayToSampleFrom: [T], sampleLength: Int) -> [T]? {
+        
+        if arrayToSampleFrom.isEmpty || sampleLength <= 0 {
+            return nil
+        }
+        
+        let inputArrayLength = arrayToSampleFrom.count
+        var randomSample: [T] = []
+        
+        for i in 1...sampleLength {
+            randomSample.append(arrayToSampleFrom[randomDiscreteUniform(min: 0, max: inputArrayLength - 1)!])
+        }
+        
+        return randomSample
+    }
+    
 }
 
 

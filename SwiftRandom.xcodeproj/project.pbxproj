@@ -31,7 +31,7 @@
 		912784DD1B18C80900DF7C27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		912784E81B18C85300DF7C27 /* SwiftRandom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRandom.swift; sourceTree = "<group>"; };
 		912784EA1B18C85E00DF7C27 /* SwiftRandomTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRandomTests.swift; sourceTree = "<group>"; };
-		912C82C91B18D6E700E5EE8E /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		912C82C91B18D6E700E5EE8E /* SwiftRandom.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = SwiftRandom.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +77,7 @@
 				912784E81B18C85300DF7C27 /* SwiftRandom.swift */,
 				912784D11B18C80900DF7C27 /* SwiftRandom.h */,
 				912784CF1B18C80900DF7C27 /* Supporting Files */,
-				912C82C91B18D6E700E5EE8E /* MyPlayground.playground */,
+				912C82C91B18D6E700E5EE8E /* SwiftRandom.playground */,
 			);
 			path = SwiftRandom;
 			sourceTree = "<group>";
