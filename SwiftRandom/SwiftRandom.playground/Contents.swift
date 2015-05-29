@@ -13,3 +13,6 @@ let numbers = [10,11,45,1]
 
 SwiftRandom.samplingWithReplacementFromArray(names, sampleLength: 10)
 SwiftRandom.samplingWithReplacementFromArray(numbers, sampleLength: 10)
+
+SwiftRandom.samplingWithoutReplacementFromArray(names, sampleLength: 6)
+SwiftRandom.samplingWithoutReplacementFromArray(numbers, sampleLength: 3)
