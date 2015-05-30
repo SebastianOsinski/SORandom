@@ -24,13 +24,13 @@ class SwiftRandomTests: XCTestCase {
     }
     
     func testUniformArray() {
-        let result = SwiftRandom.randomContinuousUniformArray(min: 0, max: 1, length: 0)
+        let result = SwiftRandom.randomContinuousUniformArray(min: 0, max: 1, sampleLength: 0)
         
         XCTAssert(result == nil)
     }
     
     func testNormal() {
-        let result = SwiftRandom.randomNormalArray(mean: 0, standardDeviation: 1, length: 11)
+        let result = SwiftRandom.randomNormalArray(mean: 0, standardDeviation: 1, sampleLength: 11)
         print(result)
     }
     
