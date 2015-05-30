@@ -4,6 +4,16 @@ import Foundation
 
 public struct SwiftRandom {
     
+    // MARK: - Binomial distribution
+    
+    /**
+    Performs single Bernoulli trial with given probability of success.
+    
+    :param: probabilityOfSuccess Probability of success.
+    
+    :returns: Success or failure as Int: 1 or 0. Returns nil if `probabilityOfSuccess` is not between 0 and 1.
+    */
+    
     public static func randomBernoulliTrial(#probabilityOfSuccess: Double) -> Int? {
     
         if probabilityOfSuccess < 0.0 || probabilityOfSuccess > 1.0 {
@@ -13,6 +23,15 @@ public struct SwiftRandom {
         return Int(randomContinuousUniform(min: 0.0, max: 1.0) < probabilityOfSuccess)
     }
     
+    /**
+    Performs series of independent Bernoulli trials with given probability of success.
+
+    :param: probabilityOfSuccess Probability of success.
+    :param: sampleLength Length of sample to generate.
+    
+    :returns: Array of 1 and 0, which indicate successes and failures. Returns nil if `probabilityOfSuccess` is not between 0 and 1 or `sampleLength` <= 0.
+    */
+
     public static func randomBinomialArray(#probabilityOfSuccess: Double, sampleLength: Int) -> [Int]? {
         
         if probabilityOfSuccess < 0.0 || probabilityOfSuccess > 1.0 || sampleLength <= 0{
@@ -28,9 +47,28 @@ public struct SwiftRandom {
         return randomSample
     }
     
-    public static func coinTossArray(sampleLength: Int) -> [Int]? {
+    /**
+    Simulates symmetric coin tossing experiment.
+    
+    :param: sampleLength Length of sample to generate.
+    
+    :returns: Array of 1 and 0, which indicate heads and tails. Returns nil if `sampleLength` <= 0.
+    */
+    
+    public static func randomCoinTossArray(sampleLength: Int) -> [Int]? {
         return randomBinomialArray(probabilityOfSuccess: 0.5, sampleLength: sampleLength)
     }
+    
+    // MARK: - Discrete uniform distribution
+    
+    /**
+    Generates single pseudorandom variable from discrete uniform distribution.
+    
+    :param: min Left boundary (inclusive) of distribution.
+    :param: max Right boundary (inclusive) of distribution.
+    
+    :returns: Single pseudorandom variable from discrete uniform distribution with given boundaries. Returns nil if `max` <= `min`.
+    */
     
     public static func randomDiscreteUniform(#min: Int, max: Int) -> Int? {
         
@@ -41,9 +79,19 @@ public struct SwiftRandom {
         return Int(arc4random_uniform(UInt32(max - min + 1))) + min
     }
     
+    /**
+    Generates array of independent pseudorandom variables from discrete uniform distribution.
+    
+    :param: min Left boundary (inclusive) of distribution.
+    :param: max Right boundary (inclusive) of distribution.
+    :param: sampleLength Length of sample to generate.
+    
+    :returns: Array of independent pseudorandom variables from discrete uniform distribution with given boundaries. Returns nil if `max` <= `min` or `sampleLength` <= 0.
+    */
+    
     public static func randomDiscreteUniformArray(#min: Int, max: Int, sampleLength: Int) -> [Int]? {
         
-        if max < min || sampleLength <= 0 {
+        if max <= min || sampleLength <= 0 {
             return nil
         }
         
@@ -56,19 +104,39 @@ public struct SwiftRandom {
         return randomSample
     }
     
+    // MARK: - Continuous uniform distribution
+    
+    /**
+    Generates single pseudorandom variable from continuous uniform distribution.
+    
+    :param: min Left boundary of distribution.
+    :param: max Right boundary of distribution.
+    
+    :returns: Single pseudorandom variable from continuous uniform distribution with given boundaries. Returns nil if `max` <= `min`.
+    */
     
     public static func randomContinuousUniform(#min: Double, max: Double) -> Double? {
         
-        if(max < min){
+        if(max <= min){
             return nil
         }
         
         return (max - min) * Double(Double(arc4random()) / Double(UINT32_MAX)) + min
     }
     
+    /**
+    Generates array of independent pseudorandom variables from continuous uniform distribution.
+    
+    :param: min Left boundary of distribution.
+    :param: max Right boundary of distribution.
+    :param: sampleLength Length of sample to generate.
+    
+    :returns: Array of independent pseudorandom variables from continuous uniform distribution with given boundaries. Returns nil if `max` <= `min` or `sampleLength` <= 0.
+    */
+    
     public static func randomContinuousUniformArray(#min: Double, max: Double, sampleLength: Int) -> [Double]? {
         
-        if max < min || sampleLength <= 0 {
+        if max <= min || sampleLength <= 0 {
             return nil
         }
         
@@ -81,6 +149,17 @@ public struct SwiftRandom {
         return randomSample
     }
     
+    // MARK: - Exponential distribution
+    
+    /**
+    Generates single pseudorandom variable from exponential distribution.
+    Function uses inverse transform sampling.
+    
+    :param: rate Rate parameter of exponential distribution.
+    
+    :returns: Single pseudorandom variable from exponential distribution with given rate. Returns nil if `rate` <= 0.
+    */
+    
     public static func randomExpontential(#rate: Double) -> Double? {
         
         if rate <= 0.0 {
@@ -90,6 +169,16 @@ public struct SwiftRandom {
         return -1.0/rate * log(randomContinuousUniform(min: 0, max: 1)!)
     }
     
+    /**
+    Generates array of independent pseudorandom variables from exponential distribution.
+    Function uses inverse transform sampling.
+    
+    :param: rate Rate parameter of exponential distribution.
+    :param: sampleLength Length of sample to generate.
+    
+    :returns: Array of independent pseudorandom variables from exponential distribution with given rate. Returns nil if `rate` <= 0 or `sampleLength` <= 0.
+    */
+
     public static func randomExponentialArray(#rate: Double, sampleLength: Int) -> [Double]? {
         
         if rate <= 0 || sampleLength <= 0 {
@@ -104,6 +193,8 @@ public struct SwiftRandom {
 
         return randomSample
     }
+    
+    // MARK: - Normal distribution
     
     /**
     Generates single pseudorandom variable from normal distribution. 
@@ -136,7 +227,7 @@ public struct SwiftRandom {
     :param: standardDeviation Standard deviation of normal distribution.
     :param: sampleLength Length of sample to generate.
     
-    :returns: Array of independent pseudorandom variables from normal distribution with given mean and standard deviation. Returns nil if `standardDeviation` <= 0 or if `sampleLength` <= 0.
+    :returns: Array of independent pseudorandom variables from normal distribution with given mean and standard deviation. Returns nil if `standardDeviation` <= 0 or `sampleLength` <= 0.
     */
     
     public static func randomNormalArray(#mean: Double, standardDeviation: Double, sampleLength: Int) -> [Double]? {
@@ -176,13 +267,15 @@ public struct SwiftRandom {
         return randomSample
     }
     
+    // MARK: - Sampling
+    
     /**
     Generates random sample from given array - sampling with replacement.
     
     :param: arrayToSampleFrom The array of any type.
     :param: sampleLength The length of output sample.
     
-    :returns: Array of length `sampleLength` with elements uniformly sampled from `arrayToSampleFrom`. Returns nil for an empty array or if `sampleLength` <= 0.
+    :returns: Array of length `sampleLength` with elements uniformly sampled from `arrayToSampleFrom`. Returns nil for an empty array or `sampleLength` <= 0.
     */
 
     
