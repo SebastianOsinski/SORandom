@@ -110,7 +110,7 @@ public struct SwiftRandom {
     Function uses Box-Muller transform.
     
     :param: mean Mean of normal distribution.
-    :standardDeviation Standard deviation of normal distribution.
+    :param: standardDeviation Standard deviation of normal distribution.
     
     :returns: Single pseudorandom variable from normal distribution with given mean and standard deviation. Returns nil if `standardDeviation` <= 0.
     */
@@ -133,8 +133,8 @@ public struct SwiftRandom {
     Function uses Box-Muller transform.
     
     :param: mean Mean of normal distribution.
-    :standardDeviation Standard deviation of normal distribution.
-    :sampleLength Length of sample to generate.
+    :param: standardDeviation Standard deviation of normal distribution.
+    :param: sampleLength Length of sample to generate.
     
     :returns: Array of independent pseudorandom variables from normal distribution with given mean and standard deviation. Returns nil if `standardDeviation` <= 0 or if `sampleLength` <= 0.
     */
