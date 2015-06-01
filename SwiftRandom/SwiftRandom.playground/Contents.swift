@@ -20,3 +20,6 @@ SwiftRandom.samplingWithoutReplacementFromArray(numbers, sampleLength: 3)
 
 let normalSample = SwiftRandom.randomNormalArray(mean: 0, standardDeviation: 10, sampleLength: 10)
 let exponentialSample = SwiftRandom.randomExponentialArray(rate: 0.001, sampleLength: 10)
+
+
+let sample = SwiftRandom.samplingWithGivenProbabilities(names, probabilities: [0, 1, 0, 0, 0, 0], sampleLength: 6)

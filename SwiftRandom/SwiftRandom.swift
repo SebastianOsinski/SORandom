@@ -302,7 +302,7 @@ public struct SwiftRandom {
     :param: arrayToSampleFrom The array of any type.
     :param: sampleLength The length of output sample.
     
-    :returns: Array of first `sampleLength` elements from shuffled array. Returns nil for empty an array or if `sampleLength` <= 0 or `sampleLength` > `arrayToSampleFron.count`.
+    :returns: Array of first `sampleLength` elements from shuffled array. Returns nil for an empty array or if `sampleLength` <= 0 or `sampleLength` > `arrayToSampleFrom.count`.
     */
     
     public static func samplingWithoutReplacementFromArray<T>(var arrayToSampleFrom: [T], sampleLength: Int) -> [T]? {
@@ -321,6 +321,54 @@ public struct SwiftRandom {
         return Array(arrayToSampleFrom[0..<sampleLength])
     }
     
+    /**
+    Generates random sample from given array using probabilites given by the user.
+    
+    :param: arrayToSampleFrom The array of any type.
+    :param: probabilities The array of probabilities.
+    :param: sampleLength The length of output sample.
+    
+    :returns: Array of length `sampleLength` with elements sampled from `arrayToSampleFrom` with probabilites from `probabilities`. Returns nil if:
+    
+        - one of arrays is empty,
+        - lengths of `arrayToSampleFrom` and `probabilities` are not the same,
+        - `sampleLength` <= 0 or `sampleLength` > `arrayToSampleFrom.count`,
+        - `probabilities` does not sum to 1.
+    */
+
+    
+    
+    public static func samplingWithGivenProbabilities<T>(arrayToSampleFrom: [T], probabilities: [Double], sampleLength: Int) -> [T]? {
+        
+        if arrayToSampleFrom.isEmpty || probabilities.isEmpty || arrayToSampleFrom.count != probabilities.count ||
+            sampleLength <= 0 || sampleLength > arrayToSampleFrom.count {
+                
+            return nil
+        }
+        
+        //check if array of probabilities sums to 1
+        if abs(probabilities.reduce(0, combine: +) - 1.0) > 0.0000001 {
+            return nil
+        }
+        
+        var randomSample: [T] = []
+        
+        for i in 0..<sampleLength {
+            
+            var sumOfProbabilities = probabilities[0]
+            var k = 0
+            
+            let r = randomContinuousUniform(min: 0.0, max: 1.0)!
+            
+            while r > sumOfProbabilities {
+                k++
+                sumOfProbabilities += probabilities[k]
+            }
+            randomSample.append(arrayToSampleFrom[k])
+        }
+        
+        return randomSample
+    }
 }
 
 
