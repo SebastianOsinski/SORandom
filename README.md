@@ -33,7 +33,7 @@ let sample = SwiftRandom.randomNormalArray(mean: 0, standardDeviation: 1, sample
 
 //with replacement
 let numbers = [10, 11, 45, 1, 0, 4]
-let bootstrapSample = SwiftRandom.samplingWithReplacementFromArray(numbers, sampleLength: 10)
+let bootstrapSample = SwiftRandom.samplingWithReplacementFromArray(numbers, sampleLength: 10)!
 
 //without replacement
 let names = ["John", "Bob", "Anna", "Alice", "Chris", "Luke"]
