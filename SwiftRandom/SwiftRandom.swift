@@ -14,37 +14,37 @@ public struct SwiftRandom {
     :returns: Success or failure as Int: 1 or 0. Returns nil if `probabilityOfSuccess` is not between 0 and 1.
     */
     
-    public static func randomBernoulliTrial(#probabilityOfSuccess: Double) -> Int? {
-    
-        if probabilityOfSuccess < 0.0 || probabilityOfSuccess > 1.0 {
-            return nil
-        }
+    public static func randBool(#probTrue: Double) -> Bool? {
         
-        return Int(randomContinuousUniform(min: 0.0, max: 1.0) < probabilityOfSuccess)
+        return ClosedInterval<Double>(0, 1).contains(probTrue) ?
+            
+            Double(arc4random_uniform(UInt32.max - 1)) / Double(UInt32.max) < probTrue :
+            
+            nil
+        
     }
     
     /**
     Performs series of independent Bernoulli trials with given probability of success.
-
+    
     :param: probabilityOfSuccess Probability of success.
     :param: sampleLength Length of sample to generate.
     
     :returns: Array of 1 and 0, which indicate successes and failures. Returns nil if `probabilityOfSuccess` is not between 0 and 1 or `sampleLength` <= 0.
     */
-
-    public static func randomBinomialArray(#probabilityOfSuccess: Double, sampleLength: Int) -> [Int]? {
+    
+    public static func randBoolArray(#probTrue: Double, length: Int) -> [Bool]? {
         
-        if probabilityOfSuccess < 0.0 || probabilityOfSuccess > 1.0 || sampleLength <= 0{
-            return nil
-        }
+        return ClosedInterval<Double>(0, 1).contains(probTrue) ?
+            
+            [Int](0..<length).map {
+                
+                (_: Int) -> Bool in
+                
+                (Double(arc4random_uniform(UInt32.max - 1)) / Double(UInt32.max)) < probTrue
+                
+            } : nil
         
-        var randomSample = [Int](count: sampleLength, repeatedValue: 0)
-        
-        for i in 0..<sampleLength {
-            randomSample[i] = randomBernoulliTrial(probabilityOfSuccess: probabilityOfSuccess)!
-        }
-        
-        return randomSample
     }
     
     /**
@@ -55,8 +55,10 @@ public struct SwiftRandom {
     :returns: Array of 1 and 0, which indicate heads and tails. Returns nil if `sampleLength` <= 0.
     */
     
-    public static func randomCoinTossArray(sampleLength: Int) -> [Int]? {
-        return randomBinomialArray(probabilityOfSuccess: 0.5, sampleLength: sampleLength)
+    public static func randomCoinTossArray(length: Int) -> [Bool] {
+        
+        return (0..<length).map{ (_: Int) -> Bool in arc4random_uniform(2) == 0 }
+        
     }
     
     // MARK: - Discrete uniform distribution
@@ -72,11 +74,8 @@ public struct SwiftRandom {
     
     public static func randomDiscreteUniform(#min: Int, max: Int) -> Int? {
         
-        if max <= min {
-            return nil
-        }
+        return max > min ? Int(arc4random_uniform(UInt32(max - min + 1))) + min : nil
         
-        return Int(arc4random_uniform(UInt32(max - min + 1))) + min
     }
     
     /**
@@ -89,19 +88,16 @@ public struct SwiftRandom {
     :returns: Array of independent pseudorandom variables from discrete uniform distribution with given boundaries. Returns nil if `max` <= `min` or `sampleLength` <= 0.
     */
     
-    public static func randomDiscreteUniformArray(#min: Int, max: Int, sampleLength: Int) -> [Int]? {
+    public static func randomDiscreteUniformArray(#min: Int, max: Int, length: Int) -> [Int]? {
         
-        if max <= min || sampleLength <= 0 {
-            return nil
-        }
+        return max > min ?
+            
+            [Int](0..<length).map {
+            
+                (_: Int) -> Int in self.randomDiscreteUniform(min: min, max: max)!
+            
+            } : nil
         
-        var randomSample = [Int](count: sampleLength, repeatedValue: 0)
-        
-        for i in 0..<sampleLength {
-            randomSample[i] = randomDiscreteUniform(min: min, max: max)!
-        }
-        
-        return randomSample
     }
     
     // MARK: - Continuous uniform distribution
@@ -117,11 +113,10 @@ public struct SwiftRandom {
     
     public static func randomContinuousUniform(#min: Double, max: Double) -> Double? {
         
-        if(max <= min){
-            return nil
-        }
+        return max > min ?
+            
+            (max - min) * Double(Double(arc4random()) / Double(UINT32_MAX)) + min : nil
         
-        return (max - min) * Double(Double(arc4random()) / Double(UINT32_MAX)) + min
     }
     
     /**
@@ -136,17 +131,12 @@ public struct SwiftRandom {
     
     public static func randomContinuousUniformArray(#min: Double, max: Double, sampleLength: Int) -> [Double]? {
         
-        if max <= min || sampleLength <= 0 {
-            return nil
-        }
+        return max > min ? [Int](0..<sampleLength).map {
+            
+            (_: Int) -> Double in self.randomContinuousUniform(min: min, max: max)!
+            
+            } : nil
         
-        var randomSample = [Double](count: sampleLength, repeatedValue: 0.0)
-        
-        for i in 0..<sampleLength {
-            randomSample[i] = randomContinuousUniform(min: min, max: max)!
-        }
-        
-        return randomSample
     }
     
     // MARK: - Exponential distribution
@@ -162,11 +152,8 @@ public struct SwiftRandom {
     
     public static func randomExpontential(#rate: Double) -> Double? {
         
-        if rate <= 0.0 {
-            return nil
-        }
+        return rate > 0 ? -1.0/rate * log(randomContinuousUniform(min: 0, max: 1)!) : nil
         
-        return -1.0/rate * log(randomContinuousUniform(min: 0, max: 1)!)
     }
     
     /**
@@ -178,26 +165,21 @@ public struct SwiftRandom {
     
     :returns: Array of independent pseudorandom variables from exponential distribution with given rate. Returns nil if `rate` <= 0 or `sampleLength` <= 0.
     */
-
+    
     public static func randomExponentialArray(#rate: Double, sampleLength: Int) -> [Double]? {
         
-        if rate <= 0 || sampleLength <= 0 {
-            return nil
-        }
+        return rate > 0 ? (0..<sampleLength).map {
+            
+            (_: Int) -> Double in self.randomExpontential(rate: rate)!
+            
+            } : nil
         
-        var randomSample = [Double](count: sampleLength, repeatedValue: 0.0)
-        
-        for i in 0..<sampleLength {
-            randomSample[i] = randomExpontential(rate: rate)!
-        }
-
-        return randomSample
     }
     
     // MARK: - Normal distribution
     
     /**
-    Generates single pseudorandom variable from normal distribution. 
+    Generates single pseudorandom variable from normal distribution.
     Function uses Box-Muller transform.
     
     :param: mean Mean of normal distribution.
@@ -206,17 +188,12 @@ public struct SwiftRandom {
     :returns: Single pseudorandom variable from normal distribution with given mean and standard deviation. Returns nil if `standardDeviation` <= 0.
     */
     
-    public static func randomNormal(#mean: Double, standardDeviation: Double) -> Double? {
+    public static func randomNormal(#mean: Double, stdDev: Double) -> Double? {
         
-        if standardDeviation <= 0.0 {
-            return nil
-        }
+        let r2 = -2.0 * log(randomContinuousUniform(min: 0, max: 1)!)
+        let theta = 2.0 * M_PI * randomContinuousUniform(min: 0, max: 1)!
         
-        let u = randomContinuousUniformArray(min: 0, max: 1, sampleLength: 2)!
-        let r2 = -2.0 * log(u[0])
-        let theta = 2.0 * M_PI * u[1]
-        
-        return standardDeviation * (sqrt(r2) * cos(theta)) + mean
+        return stdDev > 0 ? stdDev * (sqrt(r2) * cos(theta)) + mean : nil
     }
     
     /**
@@ -230,39 +207,23 @@ public struct SwiftRandom {
     :returns: Array of independent pseudorandom variables from normal distribution with given mean and standard deviation. Returns nil if `standardDeviation` <= 0 or `sampleLength` <= 0.
     */
     
-    public static func randomNormalArray(#mean: Double, standardDeviation: Double, sampleLength: Int) -> [Double]? {
+    public static func randomNormalArray(#mean: Double, stdDev: Double, length: Int) -> [Double]? {
         
-        if standardDeviation <= 0.0 || sampleLength <= 0 {
-            return nil
-        }
-        if sampleLength == 1 {
-            return [randomNormal(mean: mean, standardDeviation: standardDeviation)!]
-        }
+        if stdDev <= 0 { return nil }
         
-        let numberOfPairs: Int = sampleLength/2
-        let u1 = randomContinuousUniformArray(min: 0, max: 1, sampleLength: numberOfPairs)!
-        let u2 = randomContinuousUniformArray(min: 0, max: 1, sampleLength: numberOfPairs)!
+        var randomSample = [Double]()
         
-        var randomSample = [Double](count: sampleLength, repeatedValue: 0.0)
-        
-        var r2: Double
-        var theta: Double
-        
-        var k: Int = 0
-        
-        for i in 0..<numberOfPairs {
-            r2 = -2.0 * log(u1[i])
-            theta = 2.0 * M_PI * u2[i]
+        while randomSample.count < length {
             
-            randomSample[k] = standardDeviation * (sqrt(r2) * cos(theta)) + mean
-            k++
-            randomSample[k] = standardDeviation * (sqrt(r2) * sin(theta)) + mean
-            k++
+            let r2 = -2.0 * log(self.randomContinuousUniform(min: 0, max: 1)!)
+            let theta = 2.0 * M_PI * self.randomContinuousUniform(min: 0, max: 1)!
+            
+            randomSample.append(stdDev * (sqrt(r2) * cos(theta)) + mean)
+            randomSample.append(stdDev * (sqrt(r2) * sin(theta)) + mean)
+            
         }
         
-        if(sampleLength%2 == 1){
-            randomSample[sampleLength - 1] = randomNormal(mean: mean, standardDeviation: standardDeviation)!
-        }
+        if randomSample.count > length { randomSample.removeLast() }
         
         return randomSample
     }
@@ -277,26 +238,21 @@ public struct SwiftRandom {
     
     :returns: Array of length `sampleLength` with elements uniformly sampled from `arrayToSampleFrom`. Returns nil for an empty array or `sampleLength` <= 0.
     */
-
     
-    public static func samplingWithReplacementFromArray<T>(arrayToSampleFrom: [T], sampleLength: Int) -> [T]? {
+    public static func samplingWithReplacementFromArray<T>(items: [T], length: Int) -> [T]? {
         
-        if arrayToSampleFrom.isEmpty || sampleLength <= 0 {
-            return nil
-        }
+        return items.isEmpty ? nil :
+            
+            [Int](0..<length).map {
+                
+                (_: Int) -> T in items[Int(arc4random_uniform(UInt32(items.count)))]
+                
+            }
         
-        let inputArrayLength = arrayToSampleFrom.count
-        var randomSample: [T] = []
-        
-        for i in 1...sampleLength {
-            randomSample.append(arrayToSampleFrom[randomDiscreteUniform(min: 0, max: inputArrayLength - 1)!])
-        }
-        
-        return randomSample
     }
     
     /**
-    Generates random sample from given array - sampling without replacement. 
+    Generates random sample from given array - sampling without replacement.
     Function uses Fisher-Yates shuffling algorithm and returns Array of first `sampleLength` elements.
     
     :param: arrayToSampleFrom The array of any type.
@@ -305,20 +261,13 @@ public struct SwiftRandom {
     :returns: Array of first `sampleLength` elements from shuffled array. Returns nil for an empty array or if `sampleLength` <= 0 or `sampleLength` > `arrayToSampleFrom.count`.
     */
     
-    public static func samplingWithoutReplacementFromArray<T>(var arrayToSampleFrom: [T], sampleLength: Int) -> [T]? {
+    public static func samplingWithoutReplacementFromArray<T>(var items: [T], length: Int) -> [T]? {
         
-        if arrayToSampleFrom.isEmpty || sampleLength <= 0 || sampleLength > arrayToSampleFrom.count {
-            return nil
-        }
+        return length >= items.count ? nil :
+            
+            [UInt32](UInt32(items.count - length)..<UInt32(items.count)).reverse()
+                .map { items.removeAtIndex(Int(arc4random_uniform($0))) }
         
-        let inputArrayLength = arrayToSampleFrom.count
-        
-        for i in 0..<(inputArrayLength - 1) {
-            let k = randomDiscreteUniform(min: i, max: inputArrayLength - 1)!
-            swap(&arrayToSampleFrom[i], &arrayToSampleFrom[k])
-        }
-        
-        return Array(arrayToSampleFrom[0..<sampleLength])
     }
     
     /**
@@ -328,64 +277,27 @@ public struct SwiftRandom {
     :param: probabilities The array of probabilities.
     :param: sampleLength The length of output sample.
     
-    :returns: Array of length `sampleLength` with elements sampled from `arrayToSampleFrom` with probabilites from `probabilities`. Returns nil if:
-    
-        - one of arrays is empty,
-        - lengths of `arrayToSampleFrom` and `probabilities` are not the same,
-        - `sampleLength` <= 0 or `sampleLength` > `arrayToSampleFrom.count`,
-        - `probabilities` does not sum to 1.
+    :returns: Array of length `sampleLength` with elements sampled from `arrayToSampleFrom` with probabilites from `probabilities`.
     */
-
     
-    
-    public static func samplingWithGivenProbabilities<T>(arrayToSampleFrom: [T], probabilities: [Double], sampleLength: Int) -> [T]? {
+    public static func samplingWithGivenProbabilities<T>(items: [T], probs: [Double], length: Int) -> [T] {
         
-        if arrayToSampleFrom.isEmpty || probabilities.isEmpty || arrayToSampleFrom.count != probabilities.count ||
-            sampleLength <= 0 || sampleLength > arrayToSampleFrom.count {
-                
-            return nil
-        }
+        let factor = probs.reduce(0, combine: +) / Double(UInt32.max)
         
-        //check if array of probabilities sums to 1
-        if abs(probabilities.reduce(0, combine: +) - 1.0) > 0.0000001 {
-            return nil
-        }
+        if items.isEmpty || items.count != probs.count { return [] }
         
-        var randomSample: [T] = []
-        
-        for i in 0..<sampleLength {
+        return (0..<length).map {
             
-            var sumOfProbabilities = probabilities[0]
-            var k = 0
+            _ -> T in
             
-            let r = randomContinuousUniform(min: 0.0, max: 1.0)!
+            var rnd = factor * Double(arc4random_uniform(UInt32.max - 1))
             
-            while r > sumOfProbabilities {
-                k++
-                sumOfProbabilities += probabilities[k]
+            for (i, p) in zip(items, probs) {
+                rnd -= p
+                if rnd < 0 { return i }
             }
-            randomSample.append(arrayToSampleFrom[k])
+            
+            return items.last!
         }
-        
-        return randomSample
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
