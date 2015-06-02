@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		70B072141B1D372D000A4593 /* SwiftRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912784E81B18C85300DF7C27 /* SwiftRandom.swift */; };
 		912784D21B18C80900DF7C27 /* SwiftRandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 912784D11B18C80900DF7C27 /* SwiftRandom.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		912784D81B18C80900DF7C27 /* SwiftRandom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912784CC1B18C80900DF7C27 /* SwiftRandom.framework */; };
 		912784E91B18C85300DF7C27 /* SwiftRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912784E81B18C85300DF7C27 /* SwiftRandom.swift */; };
@@ -222,6 +223,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70B072141B1D372D000A4593 /* SwiftRandom.swift in Sources */,
 				912784EB1B18C85E00DF7C27 /* SwiftRandomTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

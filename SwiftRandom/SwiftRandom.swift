@@ -2,301 +2,303 @@ import Foundation
 
 ///  Collection of psuedorandom generators from various statistical distributions.
 
-public struct SwiftRandom {
+func randBool() -> Bool {
     
-    // MARK: - Binomial distribution
+    return arc4random_uniform(2) == 0
     
-    /**
-    Performs single Bernoulli trial with given probability of success.
+}
+
+// MARK: - Binomial distribution
+
+/**
+Performs single Bernoulli trial with given probability of success.
+
+:param: probTrue Probability of success.
+
+:returns: Success or failure as Bool. Returns nil if `probTrue` is not between 0 and 1.
+*/
+
+func randBool(probTrue: Double) -> Bool? {
     
-    :param: probTrue Probability of success.
+    return (probTrue >= 0 && probTrue <= 1) ? randCont() < probTrue : nil
     
-    :returns: Success or failure as Bool. Returns nil if `probTrue` is not between 0 and 1.
-    */
+}
+
+/**
+Performs series of independent Bernoulli trials with given probability of success.
+
+:param: probTrue Probability of success.
+:param: length Length of sample to generate.
+
+:returns: Array of Bools. Returns nil if `probTrue` is not between 0 and 1.
+*/
+
+func randBools(#probTrue: Double, length: Int) -> [Bool]? {
     
-    public static func randBool(#probTrue: Double) -> Bool? {
+    return (probTrue >= 0 && probTrue <= 1) ? (0..<length).map { _ in randBool(probTrue)! } : nil
+    
+}
+
+/**
+Simulates symmetric coin tossing experiment.
+
+:param: length Length of sample to generate.
+
+:returns: Array of Bools, which indicate heads and tails.
+*/
+
+func randBools(length: Int) -> [Bool] {
+    
+    return (0..<length).map{ _ in randBool() }
+    
+}
+
+// MARK: - Discrete uniform distribution
+
+/**
+Generates single pseudorandom variable from discrete uniform distribution.
+
+:param: min Left boundary (inclusive) of distribution.
+:param: max Right boundary (inclusive) of distribution.
+
+:returns: Single pseudorandom variable from discrete uniform distribution with given boundaries. Returns nil if `max` <= `min`.
+*/
+
+func randDisc(min: Int, max: Int) -> Int {
+    
+    return Int(arc4random_uniform(UInt32(abs(max - min)))) + Swift.min(max, min)
+    
+}
+
+func randDisc(max: Int) -> Int {
+    
+    return Int(arc4random_uniform(UInt32(max)))
+    
+}
+
+/**
+Generates array of independent pseudorandom variables from discrete uniform distribution.
+
+:param: min Left boundary (inclusive) of distribution.
+:param: max Right boundary (inclusive) of distribution.
+:param: length Length of sample to generate.
+
+:returns: Array of independent pseudorandom variables from discrete uniform distribution with given boundaries. Returns nil if `max` <= `min` or `length` <= 0.
+*/
+
+func randDiscs(#min: Int, max: Int, length: Int) -> [Int]? {
+    
+    return max > min ?
         
-        return (probTrue >= 0 && probTrue <= 1) ?
-            
-            Double(arc4random_uniform(UInt32.max - 1)) / Double(UInt32.max) < probTrue :
-            
-            nil
+        [Int](0..<length).map { _ in randDisc(min, max) } : nil
+    
+}
+
+
+
+// MARK: - Continuous uniform distribution
+
+/**
+Generates single pseudorandom variable from continuous uniform distribution.
+
+:param: min Left boundary of distribution.
+:param: max Right boundary of distribution.
+
+:returns: Single pseudorandom variable from continuous uniform distribution with given boundaries. Returns nil if `max` <= `min`.
+*/
+
+func randCont() -> Double {
+    
+    return Double(arc4random_uniform(UInt32.max - 1)) / Double(UInt32.max)
+    
+}
+
+func randCont(max: Double) -> Double {
+    
+    return max * Double(arc4random_uniform(UInt32.max - 1)) / Double(UInt32.max)
+    
+}
+
+func randCont(min: Double, max: Double) -> Double {
+    
+    return (
+        abs(max - min) *
+            Double(arc4random_uniform(UInt32.max - 1)) /
+            Double(UInt32.max)
+        ) + Swift.min(max, min)
+    
+}
+
+/**
+Generates array of independent pseudorandom variables from continuous uniform distribution.
+
+:param: min Left boundary of distribution.
+:param: max Right boundary of distribution.
+:param: length Length of sample to generate.
+
+:returns: Array of independent pseudorandom variables from continuous uniform distribution with given boundaries.
+*/
+
+func randConts(#min: Double, max: Double, length: Int) -> [Double] {
+    
+    return [Int](0..<length).map { _ in randCont(min, max) }
+    
+}
+
+// MARK: - Exponential distribution
+
+/**
+Generates single pseudorandom variable from exponential distribution.
+Function uses inverse transform sampling.
+
+:param: rate Rate parameter of exponential distribution.
+
+:returns: Single pseudorandom variable from exponential distribution with given rate. Returns nil if `rate` <= 0.
+*/
+
+func randExp(#rate: Double) -> Double? {
+    
+    return rate > 0 ? -1.0/rate * log(randCont()) : nil
+    
+}
+
+/**
+Generates array of independent pseudorandom variables from exponential distribution.
+Function uses inverse transform sampling.
+
+:param: rate Rate parameter of exponential distribution.
+:param: length Length of sample to generate.
+
+:returns: Array of independent pseudorandom variables from exponential distribution with given rate. Returns nil if `rate` <= 0.
+*/
+
+func randomExps(#rate: Double, length: Int) -> [Double]? {
+    
+    return rate > 0 ? (0..<length).map { _ in randExp(rate: rate)! } : nil
+    
+}
+
+// MARK: - Normal distribution
+
+/**
+Generates single pseudorandom variable from normal distribution.
+Function uses Box-Muller transform.
+
+:param: mean Mean of normal distribution.
+:param: stdDev Standard deviation of normal distribution.
+
+:returns: Single pseudorandom variable from normal distribution with given mean and standard deviation. Returns nil if `stdDev` <= 0.
+*/
+
+func randNormal(#mean: Double, stdDev: Double) -> Double? {
+    
+    return stdDev > 0 ?
+        
+            stdDev    *
+            sqrt(-2.0 * log(   randCont())   *
+            cos(  2.0 * M_PI * randCont()) ) +
+            mean :
+        
+        nil
+}
+
+/**
+Generates array of independent pseudorandom variables from normal distribution.
+Function uses Box-Muller transform.
+
+:param: mean Mean of normal distribution.
+:param: stdDev Standard deviation of normal distribution.
+:param: length Length of sample to generate.
+
+:returns: Array of independent pseudorandom variables from normal distribution with given mean and standard deviation. Returns nil if `stdDev` <= 0.
+*/
+
+func randNormals(#mean: Double, stdDev: Double, length: Int) -> [Double]? {
+    
+    if stdDev <= 0 { return nil }
+    
+    var randomSample = [Double]()
+    
+    while randomSample.count < length {
+        
+        let r2 = -2.0 * log(randCont())
+        let theta = 2.0 * M_PI * randCont()
+        
+        randomSample.append(stdDev * (sqrt(r2) * cos(theta)) + mean)
+        randomSample.append(stdDev * (sqrt(r2) * sin(theta)) + mean)
         
     }
     
-    /**
-    Performs series of independent Bernoulli trials with given probability of success.
+    if randomSample.count > length { randomSample.removeLast() }
     
-    :param: probTrue Probability of success.
-    :param: length Length of sample to generate.
+    return randomSample
+}
+
+// MARK: - Sampling
+
+/**
+Generates random sample from given array - sampling with replacement.
+
+:param: items The array of any type.
+:param: length The length of output sample.
+
+:returns: Array of length `length` with elements uniformly sampled from `items`. Returns nil for an empty array.
+*/
+
+func sampleWithRepeats<T>(items: [T], length: Int) -> [T]? {
     
-    :returns: Array of Bools. Returns nil if `probTrue` is not between 0 and 1.
-    */
+    return items.isEmpty ? nil : (0..<length).map { _ in items[randDisc(items.count)] }
     
-    public static func randBools(#probTrue: Double, length: Int) -> [Bool]? {
+}
+
+/**
+Generates random sample from given array - sampling without replacement.
+
+:param: items The array of any type.
+:param: length The length of output sample.
+
+:returns: Array of first `length` elements from shuffled array. Returns nil if  `length` > `items.count`.
+*/
+
+func sampleWithoutRepeats<T>(var items: [T], length: Int) -> [T]? {
+    
+    return length > items.count ? nil :
         
-        return (probTrue >= 0 && probTrue <= 1) ?
+        [Int]((items.count - length)..<items.count).reverse()
             
-            [Int](0..<length).map {
-                
-                (_: Int) -> Bool in
-                
-                (Double(arc4random_uniform(UInt32.max - 1)) / Double(UInt32.max)) < probTrue
-                
-            } : nil
+            .map { items.removeAtIndex(randDisc($0)) }
+    
+}
+
+/**
+Generates random sample from given array using probabilites given by the user.
+
+:param: items The array of any type.
+:param: probs The array of probabilities.
+:param: length The length of output sample.
+
+:returns: Array of length `length` with elements sampled from `items` with probabilites from `probs`.
+*/
+
+func weightedSample<T>(items: [T], probs: [Double], length: Int) -> [T] {
+    
+    if items.isEmpty || items.count != probs.count { return [] }
+    
+    let factor = probs.reduce(0, combine: +) / Double(UInt32.max)
+    
+    let itemsAndProbs = zip(items, probs)
+    
+    return (0..<length).map {
         
-    }
-    
-    /**
-    Simulates symmetric coin tossing experiment.
-    
-    :param: length Length of sample to generate.
-    
-    :returns: Array of Bools, which indicate heads and tails.
-    */
-    
-    public static func randBools(length: Int) -> [Bool] {
+        _ in
         
-        return (0..<length).map{ (_: Int) -> Bool in arc4random_uniform(2) == 0 }
+        var rnd = factor * Double(arc4random_uniform(UInt32.max - 1))
         
-    }
-    
-    // MARK: - Discrete uniform distribution
-    
-    /**
-    Generates single pseudorandom variable from discrete uniform distribution.
-    
-    :param: min Left boundary (inclusive) of distribution.
-    :param: max Right boundary (inclusive) of distribution.
-    
-    :returns: Single pseudorandom variable from discrete uniform distribution with given boundaries. Returns nil if `max` <= `min`.
-    */
-    
-    public static func randInt(#min: Int, max: Int) -> Int? {
-        
-        return max > min ? Int(arc4random_uniform(UInt32(max - min + 1))) + min : nil
-        
-    }
-    
-    /**
-    Generates array of independent pseudorandom variables from discrete uniform distribution.
-    
-    :param: min Left boundary (inclusive) of distribution.
-    :param: max Right boundary (inclusive) of distribution.
-    :param: length Length of sample to generate.
-    
-    :returns: Array of independent pseudorandom variables from discrete uniform distribution with given boundaries. Returns nil if `max` <= `min` or `length` <= 0.
-    */
-    
-    public static func randDouble(#min: Int, max: Int, length: Int) -> [Int]? {
-        
-        return max > min ?
-            
-            [Int](0..<length).map {
-            
-                (_: Int) -> Int in self.randInt(min: min, max: max)!
-            
-            } : nil
-        
-    }
-    
-    // MARK: - Continuous uniform distribution
-    
-    /**
-    Generates single pseudorandom variable from continuous uniform distribution.
-    
-    :param: min Left boundary of distribution.
-    :param: max Right boundary of distribution.
-    
-    :returns: Single pseudorandom variable from continuous uniform distribution with given boundaries. Returns nil if `max` <= `min`.
-    */
-    
-    public static func randDouble(#min: Double, max: Double) -> Double? {
-        
-        return max > min ?
-            
-            (max - min) * Double(Double(arc4random()) / Double(UINT32_MAX)) + min : nil
-        
-    }
-    
-    /**
-    Generates array of independent pseudorandom variables from continuous uniform distribution.
-    
-    :param: min Left boundary of distribution.
-    :param: max Right boundary of distribution.
-    :param: length Length of sample to generate.
-    
-    :returns: Array of independent pseudorandom variables from continuous uniform distribution with given boundaries. Returns nil if `max` <= `min`.
-    */
-    
-    public static func randDoubles(#min: Double, max: Double, length: Int) -> [Double]? {
-        
-        return max > min ? [Int](0..<length).map {
-            
-            (_: Int) -> Double in self.randDouble(min: min, max: max)!
-            
-            } : nil
-        
-    }
-    
-    // MARK: - Exponential distribution
-    
-    /**
-    Generates single pseudorandom variable from exponential distribution.
-    Function uses inverse transform sampling.
-    
-    :param: rate Rate parameter of exponential distribution.
-    
-    :returns: Single pseudorandom variable from exponential distribution with given rate. Returns nil if `rate` <= 0.
-    */
-    
-    public static func randExp(#rate: Double) -> Double? {
-        
-        return rate > 0 ? -1.0/rate * log(randDouble(min: 0, max: 1)!) : nil
-        
-    }
-    
-    /**
-    Generates array of independent pseudorandom variables from exponential distribution.
-    Function uses inverse transform sampling.
-    
-    :param: rate Rate parameter of exponential distribution.
-    :param: length Length of sample to generate.
-    
-    :returns: Array of independent pseudorandom variables from exponential distribution with given rate. Returns nil if `rate` <= 0.
-    */
-    
-    public static func randomExps(#rate: Double, length: Int) -> [Double]? {
-        
-        return rate > 0 ? (0..<length).map {
-            
-            (_: Int) -> Double in self.randExp(rate: rate)!
-            
-            } : nil
-        
-    }
-    
-    // MARK: - Normal distribution
-    
-    /**
-    Generates single pseudorandom variable from normal distribution.
-    Function uses Box-Muller transform.
-    
-    :param: mean Mean of normal distribution.
-    :param: stdDev Standard deviation of normal distribution.
-    
-    :returns: Single pseudorandom variable from normal distribution with given mean and standard deviation. Returns nil if `stdDev` <= 0.
-    */
-    
-    public static func randNormal(#mean: Double, stdDev: Double) -> Double? {
-        
-        let r2 = -2.0 * log(randDouble(min: 0, max: 1)!)
-        let theta = 2.0 * M_PI * randDouble(min: 0, max: 1)!
-        
-        return stdDev > 0 ? stdDev * (sqrt(r2) * cos(theta)) + mean : nil
-    }
-    
-    /**
-    Generates array of independent pseudorandom variables from normal distribution.
-    Function uses Box-Muller transform.
-    
-    :param: mean Mean of normal distribution.
-    :param: stdDev Standard deviation of normal distribution.
-    :param: length Length of sample to generate.
-    
-    :returns: Array of independent pseudorandom variables from normal distribution with given mean and standard deviation. Returns nil if `stdDev` <= 0.
-    */
-    
-    public static func randNormals(#mean: Double, stdDev: Double, length: Int) -> [Double]? {
-        
-        if stdDev <= 0 { return nil }
-        
-        var randomSample = [Double]()
-        
-        while randomSample.count < length {
-            
-            let r2 = -2.0 * log(self.randDouble(min: 0, max: 1)!)
-            let theta = 2.0 * M_PI * self.randDouble(min: 0, max: 1)!
-            
-            randomSample.append(stdDev * (sqrt(r2) * cos(theta)) + mean)
-            randomSample.append(stdDev * (sqrt(r2) * sin(theta)) + mean)
-            
+        for (i, p) in itemsAndProbs {
+            rnd -= p
+            if rnd < 0 { return i }
         }
         
-        if randomSample.count > length { randomSample.removeLast() }
-        
-        return randomSample
-    }
-    
-    // MARK: - Sampling
-    
-    /**
-    Generates random sample from given array - sampling with replacement.
-    
-    :param: items The array of any type.
-    :param: length The length of output sample.
-    
-    :returns: Array of length `length` with elements uniformly sampled from `items`. Returns nil for an empty array.
-    */
-    
-    public static func sampleWithRepeats<T>(items: [T], length: Int) -> [T]? {
-        
-        return items.isEmpty ? nil :
-            
-            [Int](0..<length).map {
-                
-                (_: Int) -> T in items[Int(arc4random_uniform(UInt32(items.count)))]
-                
-            }
-        
-    }
-    
-    /**
-    Generates random sample from given array - sampling without replacement.
-    
-    :param: items The array of any type.
-    :param: length The length of output sample.
-    
-    :returns: Array of first `length` elements from shuffled array. Returns nil if  `length` > `items.count`.
-    */
-    
-    public static func sampleWithoutRepeats<T>(var items: [T], length: Int) -> [T]? {
-        
-        return length > items.count ? nil :
-            
-            [UInt32](UInt32(items.count - length)..<UInt32(items.count)).reverse()
-                .map { items.removeAtIndex(Int(arc4random_uniform($0))) }
-        
-    }
-    
-    /**
-    Generates random sample from given array using probabilites given by the user.
-    
-    :param: items The array of any type.
-    :param: probs The array of probabilities.
-    :param: length The length of output sample.
-    
-    :returns: Array of length `length` with elements sampled from `items` with probabilites from `probs`.
-    */
-    
-    public static func weightedSample<T>(items: [T], probs: [Double], length: Int) -> [T] {
-        
-        let factor = probs.reduce(0, combine: +) / Double(UInt32.max)
-        
-        if items.isEmpty || items.count != probs.count { return [] }
-        
-        return (0..<length).map {
-            
-            _ -> T in
-            
-            var rnd = factor * Double(arc4random_uniform(UInt32.max - 1))
-            
-            for (i, p) in zip(items, probs) {
-                rnd -= p
-                if rnd < 0 { return i }
-            }
-            
-            return items.last!
-        }
+        return items.last!
     }
 }
