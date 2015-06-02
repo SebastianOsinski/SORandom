@@ -279,7 +279,7 @@ Generates random sample from given array - sampling with replacement.
 */
 
 
-public func samplingWithReplacementFromArray<T>(arrayToSampleFrom: [T], #sampleLength: Int) -> [T]? {
+public func samplingWithReplacementFromArray<T>(arrayToSampleFrom: [T], sampleLength: Int) -> [T]? {
     
     if arrayToSampleFrom.isEmpty || sampleLength <= 0 {
         return nil
@@ -305,7 +305,7 @@ Function uses Fisher-Yates shuffling algorithm and returns Array of first `sampl
 :returns: Array of first `sampleLength` elements from shuffled array. Returns nil for an empty array or if `sampleLength` <= 0 or `sampleLength` > `arrayToSampleFrom.count`.
 */
 
-public func samplingWithoutReplacementFromArray<T>(var arrayToSampleFrom: [T], #sampleLength: Int) -> [T]? {
+public func samplingWithoutReplacementFromArray<T>(var arrayToSampleFrom: [T], sampleLength: Int) -> [T]? {
     
     if arrayToSampleFrom.isEmpty || sampleLength <= 0 || sampleLength > arrayToSampleFrom.count {
         return nil
@@ -338,7 +338,7 @@ Generates random sample from given array using probabilites given by the user.
 
 
 
-public func samplingWithGivenProbabilities<T>(arrayToSampleFrom: [T], #probabilities: [Double], #sampleLength: Int) -> [T]? {
+public func samplingWithGivenProbabilities<T>(arrayToSampleFrom: [T], probabilities: [Double], sampleLength: Int) -> [T]? {
     
     if arrayToSampleFrom.isEmpty || probabilities.isEmpty || arrayToSampleFrom.count != probabilities.count ||
         sampleLength <= 0 {
