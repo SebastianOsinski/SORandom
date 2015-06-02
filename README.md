@@ -21,21 +21,23 @@ SwiftRandom is collection of pseudorandom generators from various statistical di
 ##How to use it?
 
 ```swift
+import SwiftRandom
+
 //Single pseudorandom normal variable
 //with mean 0 and standard deviation 1
-let x = SwiftRandom.randomNormal(mean: 0, standardDeviation: 1)!
+let x = randomNormal(mean: 0, standardDeviation: 1)!
 
 //Array of pseudorandom independent normal variables 
 //with mean 0 and standard deviation 1 and length 10
-let sample = SwiftRandom.randomNormalArray(mean: 0, standardDeviation: 1, sampleLength: 10)!
+let sample = randomNormalArray(mean: 0, standardDeviation: 1, sampleLength: 10)!
 
 //Sampling from array:
 
 //with replacement
 let numbers = [10, 11, 45, 1, 0, 4]
-let bootstrapSample = SwiftRandom.samplingWithReplacementFromArray(numbers, sampleLength: 10)!
+let bootstrapSample = samplingWithReplacementFromArray(numbers, sampleLength: 10)!
 
 //without replacement
 let names = ["John", "Bob", "Anna", "Alice", "Chris", "Luke"]
-let usersOrder = SwiftRandom.samplingWithoutReplacementFromArray(names, sampleLength: 4)!
+let usersOrder = samplingWithoutReplacementFromArray(names, sampleLength: 4)!
 ```
