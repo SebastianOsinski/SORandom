@@ -252,7 +252,7 @@ Generates random sample from given array - sampling without replacement.
 
 func sampleWithoutRepeats<T>(var items: [T], length: Int) -> [T] {
     
-    return [Int]((items.count - length)..<items.count).reverse()
+    return [Int]((items.count + 1 - length)...items.count).reverse()
         .map { items.removeAtIndex(randDisc($0)) }
     
 }
