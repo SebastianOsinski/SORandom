@@ -39,7 +39,7 @@ let bootstrapSample = sampleWithReplacement(numbers, 10)!
 
 //without replacement
 let names = ["John", "Bob", "Anna", "Alice", "Chris", "Luke"]
-let usersOrder = sampleWithoutReplacementFromArray(names, 4)!
+let usersOrder = sampleWithoutReplacement(names, 4)!
 
 //with given probabilities
 let letters = ["a", "b", "c", "d", "e"]
