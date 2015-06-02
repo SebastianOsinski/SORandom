@@ -25,7 +25,7 @@ import SwiftRandom
 
 //Single pseudorandom normal variable
 //with mean 0 and standard deviation 1
-let x = randNormals(0, 1)
+let x = randNormal(0, 1)
 
 //Array of pseudorandom independent normal variables 
 //with mean 0 and standard deviation 1 and length 10
