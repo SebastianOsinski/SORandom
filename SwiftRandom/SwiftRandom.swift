@@ -332,7 +332,7 @@ Generates random sample from given array using probabilites given by the user.
 
 - one of arrays is empty,
 - lengths of `arrayToSampleFrom` and `probabilities` are not the same,
-- `sampleLength` <= 0 or `sampleLength` > `arrayToSampleFrom.count`,
+- `sampleLength` <= 0,
 - `probabilities` does not sum to 1.
 */
 
@@ -341,7 +341,7 @@ Generates random sample from given array using probabilites given by the user.
 public func samplingWithGivenProbabilities<T>(arrayToSampleFrom: [T], #probabilities: [Double], #sampleLength: Int) -> [T]? {
     
     if arrayToSampleFrom.isEmpty || probabilities.isEmpty || arrayToSampleFrom.count != probabilities.count ||
-        sampleLength <= 0 || sampleLength > arrayToSampleFrom.count {
+        sampleLength <= 0 {
             
             return nil
     }
