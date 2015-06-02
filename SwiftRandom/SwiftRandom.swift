@@ -13,7 +13,7 @@ Performs single Bernoulli trial with given probability of success.
 :returns: Success or failure as Int: 1 or 0.
 */
     
-public func bernoulliTrial(probabilityOfSuccess: Double) -> Int {
+public func randBinomial(probabilityOfSuccess: Double) -> Int {
     return Int(randContUniform(0.0, 1.0) < probabilityOfSuccess)
 }
 
@@ -27,7 +27,7 @@ Performs series of independent Bernoulli trials with given probability of succes
 */
 
 public func randBinomials(probabilityOfSuccess: Double, sampleLength: Int) -> [Int] {
-    return [Int](0..<sampleLength).map { _ in bernoulliTrial(probabilityOfSuccess) }
+    return [Int](0..<sampleLength).map { _ in randBinomial(probabilityOfSuccess) }
 }
 
 /**
