@@ -18,9 +18,9 @@ Performs single Bernoulli trial with given probability of success.
 :returns: Success or failure as Bool. Returns nil if `probTrue` is not between 0 and 1.
 */
 
-func randBool(probTrue: Double) -> Bool? {
+func randBool(probTrue: Double) -> Bool {
     
-    return (probTrue >= 0 && probTrue <= 1) ? randCont() < probTrue : nil
+    return randCont() < probTrue
     
 }
 
@@ -33,9 +33,9 @@ Performs series of independent Bernoulli trials with given probability of succes
 :returns: Array of Bools. Returns nil if `probTrue` is not between 0 and 1.
 */
 
-func randBools(#probTrue: Double, length: Int) -> [Bool]? {
+func randBools(#probTrue: Double, length: Int) -> [Bool] {
     
-    return (probTrue >= 0 && probTrue <= 1) ? (0..<length).map { _ in randBool(probTrue)! } : nil
+    return(0..<length).map { _ in randBool(probTrue) }
     
 }
 
@@ -86,11 +86,9 @@ Generates array of independent pseudorandom variables from discrete uniform dist
 :returns: Array of independent pseudorandom variables from discrete uniform distribution with given boundaries. Returns nil if `max` <= `min` or `length` <= 0.
 */
 
-func randDiscs(#min: Int, max: Int, length: Int) -> [Int]? {
+func randDiscs(#min: Int, max: Int, length: Int) -> [Int] {
     
-    return max > min ?
-        
-        [Int](0..<length).map { _ in randDisc(min, max) } : nil
+    return [Int](0..<length).map { _ in randDisc(min, max) }
     
 }
 
@@ -156,9 +154,9 @@ Function uses inverse transform sampling.
 :returns: Single pseudorandom variable from exponential distribution with given rate. Returns nil if `rate` <= 0.
 */
 
-func randExp(#rate: Double) -> Double? {
+func randExp(#rate: Double) -> Double {
     
-    return rate > 0 ? -1.0/rate * log(randCont()) : nil
+    return -1.0/rate * log(randCont())
     
 }
 
@@ -172,9 +170,9 @@ Function uses inverse transform sampling.
 :returns: Array of independent pseudorandom variables from exponential distribution with given rate. Returns nil if `rate` <= 0.
 */
 
-func randomExps(#rate: Double, length: Int) -> [Double]? {
+func randomExps(#rate: Double, length: Int) -> [Double] {
     
-    return rate > 0 ? (0..<length).map { _ in randExp(rate: rate)! } : nil
+    return  (0..<length).map { _ in randExp(rate: rate) }
     
 }
 
@@ -190,16 +188,10 @@ Function uses Box-Muller transform.
 :returns: Single pseudorandom variable from normal distribution with given mean and standard deviation. Returns nil if `stdDev` <= 0.
 */
 
-func randNormal(#mean: Double, stdDev: Double) -> Double? {
+func randNormal(#mean: Double, stdDev: Double) -> Double {
     
-    return stdDev > 0 ?
-        
-            stdDev    *
-            sqrt(-2.0 * log(   randCont())   *
-            cos(  2.0 * M_PI * randCont()) ) +
-            mean :
-        
-        nil
+    return stdDev * sqrt(-2.0 * log(randCont()) * cos(M_2_PI * randCont())) + mean
+  
 }
 
 /**
@@ -213,10 +205,8 @@ Function uses Box-Muller transform.
 :returns: Array of independent pseudorandom variables from normal distribution with given mean and standard deviation. Returns nil if `stdDev` <= 0.
 */
 
-func randNormals(#mean: Double, stdDev: Double, length: Int) -> [Double]? {
-    
-    if stdDev <= 0 { return nil }
-    
+func randNormals(#mean: Double, stdDev: Double, length: Int) -> [Double] {
+  
     var randomSample = [Double]()
     
     while randomSample.count < length {
@@ -245,9 +235,9 @@ Generates random sample from given array - sampling with replacement.
 :returns: Array of length `length` with elements uniformly sampled from `items`. Returns nil for an empty array.
 */
 
-func sampleWithRepeats<T>(items: [T], length: Int) -> [T]? {
+func sampleWithRepeats<T>(items: [T], length: Int) -> [T] {
     
-    return items.isEmpty ? nil : (0..<length).map { _ in items[randDisc(items.count)] }
+    return (0..<length).map { _ in items[randDisc(items.count)] }
     
 }
 
@@ -260,13 +250,10 @@ Generates random sample from given array - sampling without replacement.
 :returns: Array of first `length` elements from shuffled array. Returns nil if  `length` > `items.count`.
 */
 
-func sampleWithoutRepeats<T>(var items: [T], length: Int) -> [T]? {
+func sampleWithoutRepeats<T>(var items: [T], length: Int) -> [T] {
     
-    return length > items.count ? nil :
-        
-        [Int]((items.count - length)..<items.count).reverse()
-            
-            .map { items.removeAtIndex(randDisc($0)) }
+    return [Int]((items.count - length)..<items.count).reverse()
+        .map { items.removeAtIndex(randDisc($0)) }
     
 }
 
@@ -281,9 +268,7 @@ Generates random sample from given array using probabilites given by the user.
 */
 
 func weightedSample<T>(items: [T], probs: [Double], length: Int) -> [T] {
-    
-    if items.isEmpty || items.count != probs.count { return [] }
-    
+        
     let factor = probs.reduce(0, combine: +) / Double(UInt32.max)
     
     let itemsAndProbs = zip(items, probs)
