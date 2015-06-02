@@ -40,4 +40,10 @@ let bootstrapSample = samplingWithReplacementFromArray(numbers, sampleLength: 10
 //without replacement
 let names = ["John", "Bob", "Anna", "Alice", "Chris", "Luke"]
 let usersOrder = samplingWithoutReplacementFromArray(names, sampleLength: 4)!
+
+//with given probabilities
+let letters = ["a", "b", "c", "d", "e"]
+let probabilties = [0.5, 0.05, 0.05, 0.1, 0.3] //probabilities have to sum to 1
+
+let randomLetters = samplingWithGivenProbabilities(letters, probabilities: probabilties, sampleLength: 10)!
 ```
