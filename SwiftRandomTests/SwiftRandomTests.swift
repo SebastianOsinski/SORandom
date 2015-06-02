@@ -12,21 +12,16 @@ import SwiftRandom
 class SwiftRandomTests: XCTestCase {
     
     func testUniformEqualParameters() {
-        let result = randContUniform(min: 1.0, max: 1.0)
+        let result = randContUniform(1.0, 1.0)
         
-        XCTAssert(result == nil)
+        XCTAssert(result == 1)
     }
     
-    func testUniformMaxSmallerThanMin() {
-        let result = randContUniform(min: 1, max: 0)
-        
-        XCTAssert(result == nil)
-    }
     
     func testUniformArray() {
-        let result = randContUniforms(min: 0, max: 1, sampleLength: 0)
+        let result = randContUniforms(0, 1, 0)
         
-        XCTAssert(result == nil)
+        XCTAssert(result.isEmpty)
     }
     
     

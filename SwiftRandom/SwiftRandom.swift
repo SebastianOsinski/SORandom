@@ -10,16 +10,11 @@ Performs single Bernoulli trial with given probability of success.
     
 :param: probabilityOfSuccess Probability of success.
     
-:returns: Success or failure as Int: 1 or 0. Returns nil if `probabilityOfSuccess` is not between 0 and 1.
+:returns: Success or failure as Int: 1 or 0.
 */
     
-public func bernoulliTrial(#probabilityOfSuccess: Double) -> Int? {
-    
-    if probabilityOfSuccess < 0.0 || probabilityOfSuccess > 1.0 {
-        return nil
-    }
-    
-    return Int(randContUniform(min: 0.0, max: 1.0) < probabilityOfSuccess)
+public func bernoulliTrial(probabilityOfSuccess: Double) -> Int {
+    return Int(randContUniform(0.0, 1.0) < probabilityOfSuccess)
 }
 
 /**
@@ -28,22 +23,11 @@ Performs series of independent Bernoulli trials with given probability of succes
 :param: probabilityOfSuccess Probability of success.
 :param: sampleLength Length of sample to generate.
 
-:returns: Array of 1 and 0, which indicate successes and failures. Returns nil if `probabilityOfSuccess` is not between 0 and 1 or `sampleLength` <= 0.
+:returns: Array of 1 and 0, which indicate successes and failures.
 */
 
-public func randBinomials(#probabilityOfSuccess: Double, #sampleLength: Int) -> [Int]? {
-    
-    if probabilityOfSuccess < 0.0 || probabilityOfSuccess > 1.0 || sampleLength <= 0{
-        return nil
-    }
-    
-    var randomSample = [Int](count: sampleLength, repeatedValue: 0)
-    
-    for i in 0..<sampleLength {
-        randomSample[i] = bernoulliTrial(probabilityOfSuccess: probabilityOfSuccess)!
-    }
-    
-    return randomSample
+public func randBinomials(probabilityOfSuccess: Double, sampleLength: Int) -> [Int] {
+    return [Int](0..<sampleLength).map { _ in bernoulliTrial(probabilityOfSuccess) }
 }
 
 /**
@@ -51,11 +35,11 @@ Simulates symmetric coin tossing experiment.
 
 :param: sampleLength Length of sample to generate.
 
-:returns: Array of 1 and 0, which indicate heads and tails. Returns nil if `sampleLength` <= 0.
+:returns: Array of 1 and 0, which indicate heads and tails.
 */
 
-public func coinTosses(sampleLength: Int) -> [Int]? {
-    return randBinomials(probabilityOfSuccess: 0.5, sampleLength: sampleLength)
+public func coinTosses(sampleLength: Int) -> [Int] {
+    return randBinomials(0.5, sampleLength)
 }
 
 // MARK: - Discrete uniform distribution
@@ -64,17 +48,13 @@ public func coinTosses(sampleLength: Int) -> [Int]? {
 Generates single pseudorandom variable from discrete uniform distribution.
 
 :param: min Left boundary (inclusive) of distribution.
-:param: max Right boundary (inclusive) of distribution.
+:param: max Right boundary (inclusive) of distribution. Should be >= `min`.
 
-:returns: Single pseudorandom variable from discrete uniform distribution with given boundaries. Returns nil if `max` <= `min`.
+
+:returns: Single pseudorandom variable from discrete uniform distribution with given boundaries.
 */
 
-public func randDiscUniform(#min: Int, #max: Int) -> Int? {
-    
-    if max <= min {
-        return nil
-    }
-    
+public func randDiscUniform(min: Int, max: Int) -> Int {
     return Int(arc4random_uniform(UInt32(max - min + 1))) + min
 }
 
@@ -82,25 +62,14 @@ public func randDiscUniform(#min: Int, #max: Int) -> Int? {
 Generates array of independent pseudorandom variables from discrete uniform distribution.
 
 :param: min Left boundary (inclusive) of distribution.
-:param: max Right boundary (inclusive) of distribution.
+:param: max Right boundary (inclusive) of distribution. Should be >= `min`.
 :param: sampleLength Length of sample to generate.
 
-:returns: Array of independent pseudorandom variables from discrete uniform distribution with given boundaries. Returns nil if `max` <= `min` or `sampleLength` <= 0.
+:returns: Array of independent pseudorandom variables from discrete uniform distribution with given boundaries.
 */
 
-public func randDiscUniforms(#min: Int, #max: Int, #sampleLength: Int) -> [Int]? {
-    
-    if max <= min || sampleLength <= 0 {
-        return nil
-    }
-    
-    var randomSample = [Int](count: sampleLength, repeatedValue: 0)
-    
-    for i in 0..<sampleLength {
-        randomSample[i] = randDiscUniform(min: min, max: max)!
-    }
-    
-    return randomSample
+public func randDiscUniforms(min: Int, max: Int, sampleLength: Int) -> [Int] {
+    return [Int](0..<sampleLength).map { _ in randDiscUniform(min, max) }
 }
 
 // MARK: - Continuous uniform distribution
@@ -109,17 +78,12 @@ public func randDiscUniforms(#min: Int, #max: Int, #sampleLength: Int) -> [Int]?
 Generates single pseudorandom variable from continuous uniform distribution.
 
 :param: min Left boundary of distribution.
-:param: max Right boundary of distribution.
+:param: max Right boundary of distribution. Should be >= `min`.
 
-:returns: Single pseudorandom variable from continuous uniform distribution with given boundaries. Returns nil if `max` <= `min`.
+:returns: Single pseudorandom variable from continuous uniform distribution with given boundaries.
 */
 
-public func randContUniform(#min: Double, #max: Double) -> Double? {
-    
-    if(max <= min){
-        return nil
-    }
-    
+public func randContUniform(min: Double, max: Double) -> Double {
     return (max - min) * Double(Double(arc4random()) / Double(UINT32_MAX)) + min
 }
 
@@ -127,25 +91,14 @@ public func randContUniform(#min: Double, #max: Double) -> Double? {
 Generates array of independent pseudorandom variables from continuous uniform distribution.
 
 :param: min Left boundary of distribution.
-:param: max Right boundary of distribution.
+:param: max Right boundary of distribution. Should be >= `min`.
 :param: sampleLength Length of sample to generate.
 
-:returns: Array of independent pseudorandom variables from continuous uniform distribution with given boundaries. Returns nil if `max` <= `min` or `sampleLength` <= 0.
+:returns: Array of independent pseudorandom variables from continuous uniform distribution with given boundaries. 
 */
 
-public func randContUniforms(#min: Double, #max: Double, #sampleLength: Int) -> [Double]? {
-    
-    if max <= min || sampleLength <= 0 {
-        return nil
-    }
-    
-    var randomSample = [Double](count: sampleLength, repeatedValue: 0.0)
-    
-    for i in 0..<sampleLength {
-        randomSample[i] = randContUniform(min: min, max: max)!
-    }
-    
-    return randomSample
+public func randContUniforms(min: Double, max: Double, sampleLength: Int) -> [Double] {
+    return [Int](0..<sampleLength).map { _ in randContUniform(min, max) }
 }
 
 // MARK: - Exponential distribution
@@ -154,43 +107,27 @@ public func randContUniforms(#min: Double, #max: Double, #sampleLength: Int) -> 
 Generates single pseudorandom variable from exponential distribution.
 Function uses inverse transform sampling.
 
-:param: rate Rate parameter of exponential distribution.
+:param: rate Rate parameter of exponential distribution. Should be > 0.
 
-:returns: Single pseudorandom variable from exponential distribution with given rate. Returns nil if `rate` <= 0.
+:returns: Single pseudorandom variable from exponential distribution with given rate.
 */
 
-public func randExp(#rate: Double) -> Double? {
-    
-    if rate <= 0.0 {
-        return nil
-    }
-    
-    return -1.0/rate * log(randContUniform(min: 0, max: 1)!)
+public func randExp(rate: Double) -> Double {
+    return -1.0/rate * log(randContUniform(0, 1))
 }
 
 /**
 Generates array of independent pseudorandom variables from exponential distribution.
 Function uses inverse transform sampling.
 
-:param: rate Rate parameter of exponential distribution.
+:param: rate Rate parameter of exponential distribution. Should be > 0.
 :param: sampleLength Length of sample to generate.
 
-:returns: Array of independent pseudorandom variables from exponential distribution with given rate. Returns nil if `rate` <= 0 or `sampleLength` <= 0.
+:returns: Array of independent pseudorandom variables from exponential distribution with given rate.
 */
 
-public func randExps(#rate: Double, #sampleLength: Int) -> [Double]? {
-    
-    if rate <= 0 || sampleLength <= 0 {
-        return nil
-    }
-    
-    var randomSample = [Double](count: sampleLength, repeatedValue: 0.0)
-    
-    for i in 0..<sampleLength {
-        randomSample[i] = randExp(rate: rate)!
-    }
-    
-    return randomSample
+public func randExps(rate: Double, sampleLength: Int) -> [Double] {
+    return [Int](0..<sampleLength).map { _ in randExp(rate) }
 }
 
 // MARK: - Normal distribution
@@ -202,16 +139,13 @@ Function uses Box-Muller transform.
 :param: mean Mean of normal distribution.
 :param: standardDeviation Standard deviation of normal distribution.
 
-:returns: Single pseudorandom variable from normal distribution with given mean and standard deviation. Returns nil if `standardDeviation` <= 0.
+:returns: Single pseudorandom variable from normal distribution with given mean and standard deviation.
 */
 
-public func randNormal(#mean: Double, #standardDeviation: Double) -> Double? {
+// TODO: Refactor
+public func randNormal(mean: Double, standardDeviation: Double) -> Double {
     
-    if standardDeviation <= 0.0 {
-        return nil
-    }
-    
-    let u = randContUniforms(min: 0, max: 1, sampleLength: 2)!
+    let u = randContUniforms(0, 1, 2)
     let r2 = -2.0 * log(u[0])
     let theta = 2.0 * M_PI * u[1]
     
@@ -226,21 +160,15 @@ Function uses Box-Muller transform.
 :param: standardDeviation Standard deviation of normal distribution.
 :param: sampleLength Length of sample to generate.
 
-:returns: Array of independent pseudorandom variables from normal distribution with given mean and standard deviation. Returns nil if `standardDeviation` <= 0 or `sampleLength` <= 0.
+:returns: Array of independent pseudorandom variables from normal distribution with given mean and standard deviation. 
 */
 
-public func randNormals(#mean: Double, #standardDeviation: Double, #sampleLength: Int) -> [Double]? {
-    
-    if standardDeviation <= 0.0 || sampleLength <= 0 {
-        return nil
-    }
-    if sampleLength == 1 {
-        return [randNormal(mean: mean, standardDeviation: standardDeviation)!]
-    }
+// TODO: Refactor
+public func randNormals(mean: Double, standardDeviation: Double, sampleLength: Int) -> [Double] {
     
     let numberOfPairs: Int = sampleLength/2
-    let u1 = randContUniforms(min: 0, max: 1, sampleLength: numberOfPairs)!
-    let u2 = randContUniforms(min: 0, max: 1, sampleLength: numberOfPairs)!
+    let u1 = randContUniforms(0, 1, numberOfPairs)
+    let u2 = randContUniforms(0, 1, numberOfPairs)
     
     var randomSample = [Double](count: sampleLength, repeatedValue: 0.0)
     
@@ -260,7 +188,7 @@ public func randNormals(#mean: Double, #standardDeviation: Double, #sampleLength
     }
     
     if(sampleLength%2 == 1){
-        randomSample[sampleLength - 1] = randNormal(mean: mean, standardDeviation: standardDeviation)!
+        randomSample[sampleLength - 1] = randNormal(mean, standardDeviation)
     }
     
     return randomSample
@@ -274,21 +202,17 @@ Generates random sample from given array - sampling with replacement.
 :param: arrayToSampleFrom The array of any type.
 :param: sampleLength The length of output sample.
 
-:returns: Array of length `sampleLength` with elements uniformly sampled from `arrayToSampleFrom`. Returns nil for an empty array or `sampleLength` <= 0.
+:returns: Array of length `sampleLength` with elements uniformly sampled from `arrayToSampleFrom`.
 */
 
-
-public func sampleWithReplacement<T>(arrayToSampleFrom: [T], sampleLength: Int) -> [T]? {
-    
-    if arrayToSampleFrom.isEmpty || sampleLength <= 0 {
-        return nil
-    }
+// TODO: Refactor
+public func sampleWithReplacement<T>(arrayToSampleFrom: [T], sampleLength: Int) -> [T] {
     
     let inputArrayLength = arrayToSampleFrom.count
     var randomSample: [T] = []
     
     for i in 1...sampleLength {
-        randomSample.append(arrayToSampleFrom[randDiscUniform(min: 0, max: inputArrayLength - 1)!])
+        randomSample.append(arrayToSampleFrom[randDiscUniform(0, inputArrayLength - 1)])
     }
     
     return randomSample
@@ -301,19 +225,16 @@ Function uses Fisher-Yates shuffling algorithm and returns Array of first `sampl
 :param: arrayToSampleFrom The array of any type.
 :param: sampleLength The length of output sample.
 
-:returns: Array of first `sampleLength` elements from shuffled array. Returns nil for an empty array or if `sampleLength` <= 0 or `sampleLength` > `arrayToSampleFrom.count`.
+:returns: Array of first `sampleLength` elements from shuffled array. 
 */
 
-public func sampleWithoutReplacement<T>(var arrayToSampleFrom: [T], sampleLength: Int) -> [T]? {
-    
-    if arrayToSampleFrom.isEmpty || sampleLength <= 0 || sampleLength > arrayToSampleFrom.count {
-        return nil
-    }
+// TODO: Refactor
+public func sampleWithoutReplacement<T>(var arrayToSampleFrom: [T], sampleLength: Int) -> [T] {
     
     let inputArrayLength = arrayToSampleFrom.count
     
     for i in 0..<(inputArrayLength - 1) {
-        let k = randDiscUniform(min: i, max: inputArrayLength - 1)!
+        let k = randDiscUniform(i, inputArrayLength - 1)
         swap(&arrayToSampleFrom[i], &arrayToSampleFrom[k])
     }
     
@@ -327,28 +248,12 @@ Generates random sample from given array using probabilites given by the user.
 :param: probabilities The array of probabilities.
 :param: sampleLength The length of output sample.
 
-:returns: Array of length `sampleLength` with elements sampled from `arrayToSampleFrom` with probabilites from `probabilities`. Returns nil if:
+:returns: Array of length `sampleLength` with elements sampled from `arrayToSampleFrom` with probabilites from `probabilities`. 
 
-- one of arrays is empty,
-- lengths of `arrayToSampleFrom` and `probabilities` are not the same,
-- `sampleLength` <= 0,
-- `probabilities` does not sum to 1.
 */
 
-
-
-public func sampleWithProbs<T>(arrayToSampleFrom: [T], probabilities: [Double], sampleLength: Int) -> [T]? {
-    
-    if arrayToSampleFrom.isEmpty || probabilities.isEmpty || arrayToSampleFrom.count != probabilities.count ||
-        sampleLength <= 0 {
-            
-            return nil
-    }
-    
-    //check if array of probabilities sums to 1
-    if abs(probabilities.reduce(0, combine: +) - 1.0) > 0.0000001 {
-        return nil
-    }
+// TODO: Refactor
+public func sampleWithProbs<T>(arrayToSampleFrom: [T], probabilities: [Double], sampleLength: Int) -> [T] {
     
     var randomSample: [T] = []
     
@@ -357,7 +262,7 @@ public func sampleWithProbs<T>(arrayToSampleFrom: [T], probabilities: [Double], 
         var sumOfProbabilities = probabilities[0]
         var k = 0
         
-        let r = randContUniform(min: 0.0, max: 1.0)!
+        let r = randContUniform(0.0, 1.0)
         
         while r > sumOfProbabilities {
             k++
