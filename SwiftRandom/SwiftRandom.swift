@@ -16,7 +16,7 @@ public struct SwiftRandom {
     
     public static func randBool(#probTrue: Double) -> Bool? {
         
-        return ClosedInterval<Double>(0, 1).contains(probTrue) ?
+        return (probTrue >= 0 && probTrue <= 1) ?
             
             Double(arc4random_uniform(UInt32.max - 1)) / Double(UInt32.max) < probTrue :
             
@@ -35,7 +35,7 @@ public struct SwiftRandom {
     
     public static func randBools(#probTrue: Double, length: Int) -> [Bool]? {
         
-        return ClosedInterval<Double>(0, 1).contains(probTrue) ?
+        return (probTrue >= 0 && probTrue <= 1) ?
             
             [Int](0..<length).map {
                 
