@@ -8,7 +8,7 @@ import Foundation
 /**
 Performs single Bernoulli trial with given probability of success.
     
-:param: probabilityOfSuccess Probability of success.
+:param: probabilityOfSuccess Probability of success. Should be between 0 and 1.
     
 :returns: Success or failure as Int: 1 or 0.
 */
@@ -20,14 +20,14 @@ public func randBinomial(probabilityOfSuccess: Double) -> Int {
 /**
 Performs series of independent Bernoulli trials with given probability of success.
 
-:param: probabilityOfSuccess Probability of success.
+:param: probabilityOfSuccess Probability of success. Should be between 0 and 1.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of 1 and 0, which indicate successes and failures.
 */
 
 public func randBinomials(probabilityOfSuccess: Double, sampleLength: Int) -> [Int] {
-    return [Int](0..<sampleLength).map { _ in randBinomial(probabilityOfSuccess) }
+    return (0..<sampleLength).map { _ in randBinomial(probabilityOfSuccess) }
 }
 
 /**
@@ -40,6 +40,36 @@ Simulates symmetric coin tossing experiment.
 
 public func coinTosses(sampleLength: Int) -> [Int] {
     return randBinomials(0.5, sampleLength)
+}
+
+
+// MARK: - Geometric distribution
+
+/**
+Generate single pseudorandom variable from geometric distribution.
+The probability distribution of the number X of Bernoulli trials needed to get one success.
+
+:param: probabilityOfSuccess Probability of success. Should be between 0 and 1.
+
+:returns: Single pseudorandom variable from geometric distribution with given probability of success.
+*/
+
+public func randGeom(probabilityOfSuccess: Double) -> Int {
+    return Int(ceil(log(randContUniform(0, 1))/log(1 - probabilityOfSuccess)))
+}
+
+/**
+Generates array of independent pseudorandom variables from geometric distribution.
+The probability distribution of the number X of Bernoulli trials needed to get one success.
+
+:param: probabilityOfSuccess Probability of success. Should be between 0 and 1.
+:param: sampleLength Length of sample to generate.
+
+:returns: Array of independent pseudorandom variables from geometric distribution with given probability of success.
+*/
+
+public func randGeoms(probabilityOfSuccess: Double, sampleLength: Int) -> [Int] {
+    return (0..<sampleLength).map { _ in randGeom(probabilityOfSuccess) }
 }
 
 // MARK: - Discrete uniform distribution
@@ -69,7 +99,7 @@ Generates array of independent pseudorandom variables from discrete uniform dist
 */
 
 public func randDiscUniforms(min: Int, max: Int, sampleLength: Int) -> [Int] {
-    return [Int](0..<sampleLength).map { _ in randDiscUniform(min, max) }
+    return (0..<sampleLength).map { _ in randDiscUniform(min, max) }
 }
 
 // MARK: - Continuous uniform distribution
@@ -98,7 +128,7 @@ Generates array of independent pseudorandom variables from continuous uniform di
 */
 
 public func randContUniforms(min: Double, max: Double, sampleLength: Int) -> [Double] {
-    return [Int](0..<sampleLength).map { _ in randContUniform(min, max) }
+    return (0..<sampleLength).map { _ in randContUniform(min, max) }
 }
 
 // MARK: - Exponential distribution
@@ -127,7 +157,7 @@ Function uses inverse transform sampling.
 */
 
 public func randExps(rate: Double, sampleLength: Int) -> [Double] {
-    return [Int](0..<sampleLength).map { _ in randExp(rate) }
+    return (0..<sampleLength).map { _ in randExp(rate) }
 }
 
 // MARK: - Normal distribution
