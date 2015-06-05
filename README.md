@@ -1,4 +1,9 @@
 #SwiftRandom
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://mit-license.org)
+[![Language](https://img.shields.io/badge/language-swift-orange.svg)](https://developer.apple.com/swift)
+[![Platform](https://img.shields.io/badge/platform-iOS%20%26%20OS%20X-lightgrey.svg
+)](https://developer.apple.com/resources/)
+
 
 SwiftRandom is collection of pseudorandom generators from various statistical distributions and functions for pseudorandom array sampling.
 
