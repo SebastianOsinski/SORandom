@@ -10,16 +10,16 @@ SwiftRandom is collection of pseudorandom generators from various statistical di
 ##Available psuedorandom generators:
 
 * Discrete distributions:
-	* Discrete uniform distribution
-	* Binomial distribution
-	* Geometric distribution
-	* Poisson distribution
+	* [Discrete uniform distribution](https://en.wikipedia.org/wiki/Uniform_distribution_\(discrete\))
+	* [Binomial distribution](https://en.wikipedia.org/wiki/Binomial_distribution)
+	* [Geometric distribution](https://en.wikipedia.org/?title=Geometric_distribution)
+	* [Poisson distribution](https://en.wikipedia.org/?title=Poisson_distribution)
 * Continuous distributions:
-	* Continuous uniform distribution
-	* Exponential distribution
-	* Gamma distribution
-	* Beta distribution
-	* Normal (Gaussian) distribution
+	* [Continuous uniform distribution](https://en.wikipedia.org/wiki/Uniform_distribution_\(continuous\))
+	* [Exponential distribution](https://en.wikipedia.org/?title=Exponential_distribution)
+	* [Gamma distribution](https://en.wikipedia.org/wiki/Gamma_distribution)
+	* [Beta distribution](https://en.wikipedia.org/wiki/Beta_distribution)
+	* [Normal (Gaussian) distribution](https://en.wikipedia.org/wiki/Normal_distribution)
 
 ##Sampling functions:
 
