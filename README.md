@@ -25,7 +25,7 @@ SwiftRandom is collection of pseudorandom generators from various statistical di
 
 * Sampling with replacement
 * Sampling without replacement
-* Sampling with replacement with given probabilities		 	
+* Sampling with replacement with given weights		 	
 
 ##How to use it?
 
@@ -50,9 +50,9 @@ let bootstrapSample = sampleWithReplacement(numbers, 10)
 let names = ["John", "Bob", "Anna", "Alice", "Chris", "Luke"]
 let usersOrder = sampleWithoutReplacement(names, 4)
 
-//with given probabilities
+//with given weights
 let letters = ["a", "b", "c", "d", "e"]
-let probabilities = [0.5, 0.05, 0.05, 0.1, 0.3] //probabilities have to sum to 1
+let probabilities = [0.5, 0.05, 0.05, 0.1, 0.3] 
 
-let randomLetters = sampleWithProbs(letters, probabilities, 10)
+let randomLetters = sampleWithWeights(letters, probabilities, 10)
 ```

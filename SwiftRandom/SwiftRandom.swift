@@ -357,7 +357,7 @@ public func sampleWithReplacement<T>(arrayToSampleFrom: [T], sampleLength: Int) 
     let inputArrayLength = arrayToSampleFrom.count
     var randomSample: [T] = []
     
-    for i in 1...sampleLength {
+    for _ in 1...sampleLength {
         randomSample.append(arrayToSampleFrom[randDiscUniform(0, inputArrayLength - 1)])
     }
     
@@ -388,31 +388,31 @@ public func sampleWithoutReplacement<T>(var arrayToSampleFrom: [T], sampleLength
 }
 
 /**
-Generates random sample from given array using probabilites given by the user.
+Generates random sample from given array using weights given by the user.
 
 :param: arrayToSampleFrom The array of any type.
-:param: probabilities The array of probabilities.
+:param: weights The array of weights.
 :param: sampleLength The length of output sample.
 
-:returns: Array of length `sampleLength` with elements sampled from `arrayToSampleFrom` with probabilites from `probabilities`. 
+:returns: Array of length `sampleLength` with elements sampled from `arrayToSampleFrom` with weights from `weights`.
 
 */
 
 // TODO: Refactor
-public func sampleWithProbs<T>(arrayToSampleFrom: [T], probabilities: [Double], sampleLength: Int) -> [T] {
+public func sampleWithWeights<T>(arrayToSampleFrom: [T], weights: [Double], sampleLength: Int) -> [T] {
     
     var randomSample: [T] = []
+    let sumOfWeights = weights.reduce(0, combine: +)
     
-    for i in 0..<sampleLength {
+    for _ in 0..<sampleLength {
         
-        var sumOfProbabilities = probabilities[0]
+        var currentSumOfWeights = weights[0]
         var k = 0
+        let r = randContUniform(0.0, sumOfWeights)
         
-        let r = randContUniform(0.0, 1.0)
-        
-        while r > sumOfProbabilities {
+        while r > currentSumOfWeights {
             k++
-            sumOfProbabilities += probabilities[k]
+            currentSumOfWeights += weights[k]
         }
         randomSample.append(arrayToSampleFrom[k])
     }
