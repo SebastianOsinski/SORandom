@@ -283,7 +283,7 @@ Generates single pseudorandom variable from normal distribution.
 Function uses Box-Muller transform.
 
 :param: mean Mean of normal distribution.
-:param: standardDeviation Standard deviation of normal distribution.
+:param: standardDeviation Standard deviation of normal distribution. Should be > 0.
 
 :returns: Single pseudorandom variable from normal distribution with given mean and standard deviation.
 */
@@ -303,7 +303,7 @@ Generates array of independent pseudorandom variables from normal distribution.
 Function uses Box-Muller transform.
 
 :param: mean Mean of normal distribution.
-:param: standardDeviation Standard deviation of normal distribution.
+:param: standardDeviation Standard deviation of normal distribution. Should be > 0.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of independent pseudorandom variables from normal distribution with given mean and standard deviation. 
@@ -338,6 +338,35 @@ public func randNormals(mean: Double, standardDeviation: Double, sampleLength: I
     }
     
     return randomSample
+}
+
+// MARK: - Lognormal distribution
+
+/**
+Generates single pseudorandom variable from lognormal distribution.
+
+:param: location Location parameter of lognormal distribution.
+:param: shape Standard deviation of normal distribution.
+
+:returns: Single pseudorandom variable from lognormal distribution with given location and shape.
+*/
+
+public func randLognormal(location: Double, shape: Double) -> Double {
+    return exp(randNormal(location, shape))
+}
+
+/**
+Generates array of independent pseudorandom variables from lognormal distribution.
+
+:param: location Location parameter of lognormal distribution.
+:param: shape Standard deviation of normal distribution.
+:param: sampleLength Length of sample to generate.
+
+:returns: Array of independent pseudorandom variables from lognormal distribution with given location and shape.
+*/
+
+public func randLognormals(location: Double, shape: Double, sampleLength: Int) -> [Double] {
+    return randNormals(location, shape, sampleLength).map {exp($0)}
 }
 
 // MARK: - Sampling
