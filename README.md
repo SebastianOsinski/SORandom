@@ -13,6 +13,7 @@ SwiftRandom is collection of pseudorandom generators from various statistical di
 	* Discrete uniform distribution
 	* Binomial distribution
 	* Geometric distribution
+	* Poisson distribution
 * Continuous distributions:
 	* Continuous uniform distribution
 	* Exponential distribution

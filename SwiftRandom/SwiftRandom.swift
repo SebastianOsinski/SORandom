@@ -46,7 +46,7 @@ public func coinTosses(sampleLength: Int) -> [Int] {
 // MARK: - Geometric distribution
 
 /**
-Generate single pseudorandom variable from geometric distribution.
+Generates single pseudorandom variable from geometric distribution.
 The probability distribution of the number X of Bernoulli trials needed to get one success.
 
 :param: probabilityOfSuccess Probability of success. Should be between 0 and 1.
@@ -71,6 +71,43 @@ The probability distribution of the number X of Bernoulli trials needed to get o
 public func randGeoms(probabilityOfSuccess: Double, sampleLength: Int) -> [Int] {
     return (0..<sampleLength).map { _ in randGeom(probabilityOfSuccess) }
 }
+
+// MARK: - Poisson distribution
+
+/**
+Generate single pseudorandom variable from Poisson distribution.
+
+:param: lambda Lambda parameter of Poisson distribution. Should be > 0.
+:returns: Single pseudorandom variable from Poisson distribution with given lambda.
+*/
+
+public func randPoisson(lambda: Double) -> Int {
+    var k = 0
+    var prob = exp(-lambda)
+    var cdf = prob
+    let u = randContUniform(0, 1)
+    
+    while u > cdf {
+        prob *= lambda/Double(k+1)
+        cdf += prob
+        k++
+    }
+    return k
+}
+
+/**
+Generates array of independent pseudorandom variables from Poisson distribution.
+
+:param: lambda Lambda parameter of Poisson distribution. Should be > 0.
+:param: sampleLength Length of sample to generate.
+
+:returns: Array of independent pseudorandom variables from Poisson distribution with given lambda.
+*/
+
+public func randPoissons(lambda: Double, sampleLength: Int) -> [Int] {
+    return (0..<sampleLength).map { _ in randPoisson(lambda) }
+}
+
 
 // MARK: - Discrete uniform distribution
 
