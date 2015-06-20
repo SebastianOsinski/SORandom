@@ -131,6 +131,43 @@ public func randContUniforms(min: Double, max: Double, sampleLength: Int) -> [Do
     return (0..<sampleLength).map { _ in randContUniform(min, max) }
 }
 
+// MARK: - Beta distribution
+
+/*Generates single pseudorandom variable from beta distribution.
+
+:param: shape1 First shape parameter. Should be > 0.
+:param: shape2 Second shape parameter. Should be > 0.
+
+:returns: Single pseudorandom variable from beta distribution with given shapes.
+*/
+
+public func randBeta(shape1: Double, shape2: Double) -> Double {
+    
+    let maxValue = pow((shape1 - 1)/(shape1 + shape2 - 2), shape1 - 1) * pow((shape2 - 1)/(shape1 + shape2 - 2), shape2 - 1)
+    var u1, u2: Double
+    
+    do {
+        u1 = randContUniform(0.0, 1.0)
+        u2 = randContUniform(0.0, maxValue)
+    } while u2 > pow(u1, shape1 - 1)*pow(u1, shape2 - 1)
+    
+    return u1
+}
+
+/**
+Generates array of independent pseudorandom variables from beta distribution.
+
+:param: shape1 First shape parameter. Should be > 0.
+:param: shape2 Second shape parameter. Should be > 0.
+:param: sampleLength Length of sample to generate.
+
+:returns: Array of independent pseudorandom variables from beta distribution with given shapes.
+*/
+
+public func randBetas(shape1: Double, shape2: Double, sampleLength: Int) -> [Double] {
+    return (0..<sampleLength).map { _ in randBeta(shape1, shape2) }
+}
+
 // MARK: - Exponential distribution
 
 /**
@@ -159,6 +196,48 @@ Function uses inverse transform sampling.
 public func randExps(rate: Double, sampleLength: Int) -> [Double] {
     return (0..<sampleLength).map { _ in randExp(rate) }
 }
+
+// MARK: - Gamma distribution
+
+/**
+Generates single pseudorandom variable from gamma distribution.
+
+:param: shape Shape of gamma distribution. Should be > 0.
+:param: rate Rate of gamma distribution. Should be > 0.
+
+:returns: Single pseudorandom variable from gamma distribution with given shape and rate.
+*/
+
+public func randGamma(shape: Double, rate: Double) -> Double {
+    
+    let lambda = rate/shape
+    
+    var temp: Double
+    var u: Double
+    
+    do {
+        u = randContUniform(0.0, 1.0)
+        temp = randExp(lambda)
+    } while exp((shape-1.0) * (1 - lambda * temp)) < u
+    
+    return temp
+}
+
+
+/**
+Generates array of independent pseudorandom variables from gamma distribution.
+
+:param: shape Shape of gamma distribution. Should be > 0.
+:param: rate Rate of gamma distribution. Should be > 0.
+:param: sampleLength Length of sample to generate.
+
+:returns: Array of independent pseudorandom variables from gamma distribution with given shape and rate.
+*/
+
+public func randGammas(shape: Double, rate: Double, sampleLength: Int) -> [Double] {
+    return (0..<sampleLength).map { _ in randGamma(shape, rate) }
+}
+
 
 // MARK: - Normal distribution
 
@@ -303,23 +382,3 @@ public func sampleWithProbs<T>(arrayToSampleFrom: [T], probabilities: [Double], 
     
     return randomSample
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
