@@ -346,7 +346,7 @@ public func randNormals(mean: Double, standardDeviation: Double, sampleLength: I
 Generates single pseudorandom variable from lognormal distribution.
 
 :param: location Location parameter of lognormal distribution.
-:param: shape Standard deviation of normal distribution.
+:param: shape Shape parameter of lognormal distribution. Should be > 0.
 
 :returns: Single pseudorandom variable from lognormal distribution with given location and shape.
 */
@@ -359,14 +359,43 @@ public func randLognormal(location: Double, shape: Double) -> Double {
 Generates array of independent pseudorandom variables from lognormal distribution.
 
 :param: location Location parameter of lognormal distribution.
-:param: shape Standard deviation of normal distribution.
+:param: shape Shape parameter of lognormal distribution. Should be > 0.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of independent pseudorandom variables from lognormal distribution with given location and shape.
 */
 
 public func randLognormals(location: Double, shape: Double, sampleLength: Int) -> [Double] {
-    return randNormals(location, shape, sampleLength).map {exp($0)}
+    return randNormals(location, shape, sampleLength).map { exp($0) }
+}
+
+// MARK: - Pareto distribution
+
+/**
+Generates single pseudorandom variable from Pareto distribution.
+
+:param: scale Scale parameter of Pareto distribution. Should be > 0.
+:param: shape Shape parameter of Pareto distribution. Should be > 0.
+
+:returns: Single pseudorandom variable from Pareto distribution with given scale and shape.
+*/
+
+public func randPareto(scale: Double, shape: Double) -> Double {
+    return scale * pow(randContUniform(0, 1), -1.0 / shape)
+}
+
+/**
+Generates array of independent pseudorandom variables from Pareto distribution.
+
+:param: scale Scale parameter of Pareto distribution. Should be > 0.
+:param: shape Shape parameter of Pareto distribution. Should be > 0.
+:param: sampleLength Length of sample to generate.
+
+:returns: Array of independent pseudorandom variables from Pareto distribution with given scale and shape.
+*/
+
+public func randParetos(scale: Double, shape: Double, sampleLength: Int) -> [Double] {
+    return randContUniforms(0, 1, sampleLength).map { scale * pow($0, -1.0 / shape) }
 }
 
 // MARK: - Sampling
