@@ -8,7 +8,7 @@ import Foundation
 /**
 Performs single Bernoulli trial with given probability of success.
     
-:param: probabilityOfSuccess Probability of success. Should be between 0 and 1.
+:param: probabilityOfSuccess Probability of success. Must be between 0 and 1.
     
 :returns: Success or failure as Int: 1 or 0.
 */
@@ -20,7 +20,7 @@ public func randBinomial(probabilityOfSuccess: Double) -> Int {
 /**
 Performs series of independent Bernoulli trials with given probability of success.
 
-:param: probabilityOfSuccess Probability of success. Should be between 0 and 1.
+:param: probabilityOfSuccess Probability of success. Must be between 0 and 1.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of 1 and 0, which indicate successes and failures.
@@ -49,7 +49,7 @@ public func coinTosses(sampleLength: Int) -> [Int] {
 Generates single pseudorandom variable from geometric distribution.
 The probability distribution of the number X of Bernoulli trials needed to get one success.
 
-:param: probabilityOfSuccess Probability of success. Should be between 0 and 1.
+:param: probabilityOfSuccess Probability of success. Must be between 0 and 1.
 
 :returns: Single pseudorandom variable from geometric distribution with given probability of success.
 */
@@ -62,7 +62,7 @@ public func randGeom(probabilityOfSuccess: Double) -> Int {
 Generates array of independent pseudorandom variables from geometric distribution.
 The probability distribution of the number X of Bernoulli trials needed to get one success.
 
-:param: probabilityOfSuccess Probability of success. Should be between 0 and 1.
+:param: probabilityOfSuccess Probability of success. Must be between 0 and 1.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of independent pseudorandom variables from geometric distribution with given probability of success.
@@ -77,7 +77,7 @@ public func randGeoms(probabilityOfSuccess: Double, sampleLength: Int) -> [Int] 
 /**
 Generate single pseudorandom variable from Poisson distribution.
 
-:param: lambda Lambda parameter of Poisson distribution. Should be > 0.
+:param: lambda Lambda parameter of Poisson distribution. Must be > 0.
 :returns: Single pseudorandom variable from Poisson distribution with given lambda.
 */
 
@@ -98,7 +98,7 @@ public func randPoisson(lambda: Double) -> Int {
 /**
 Generates array of independent pseudorandom variables from Poisson distribution.
 
-:param: lambda Lambda parameter of Poisson distribution. Should be > 0.
+:param: lambda Lambda parameter of Poisson distribution. Must be > 0.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of independent pseudorandom variables from Poisson distribution with given lambda.
@@ -115,7 +115,7 @@ public func randPoissons(lambda: Double, sampleLength: Int) -> [Int] {
 Generates single pseudorandom variable from discrete uniform distribution.
 
 :param: min Left boundary (inclusive) of distribution.
-:param: max Right boundary (inclusive) of distribution. Should be >= `min`.
+:param: max Right boundary (inclusive) of distribution. Must be >= `min`.
 
 
 :returns: Single pseudorandom variable from discrete uniform distribution with given boundaries.
@@ -129,7 +129,7 @@ public func randDiscUniform(min: Int, max: Int) -> Int {
 Generates array of independent pseudorandom variables from discrete uniform distribution.
 
 :param: min Left boundary (inclusive) of distribution.
-:param: max Right boundary (inclusive) of distribution. Should be >= `min`.
+:param: max Right boundary (inclusive) of distribution. Must be >= `min`.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of independent pseudorandom variables from discrete uniform distribution with given boundaries.
@@ -145,7 +145,7 @@ public func randDiscUniforms(min: Int, max: Int, sampleLength: Int) -> [Int] {
 Generates single pseudorandom variable from continuous uniform distribution.
 
 :param: min Left boundary of distribution.
-:param: max Right boundary of distribution. Should be >= `min`.
+:param: max Right boundary of distribution. Must be >= `min`.
 
 :returns: Single pseudorandom variable from continuous uniform distribution with given boundaries.
 */
@@ -158,7 +158,7 @@ public func randContUniform(min: Double, max: Double) -> Double {
 Generates array of independent pseudorandom variables from continuous uniform distribution.
 
 :param: min Left boundary of distribution.
-:param: max Right boundary of distribution. Should be >= `min`.
+:param: max Right boundary of distribution. Must be >= `min`.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of independent pseudorandom variables from continuous uniform distribution with given boundaries. 
@@ -172,8 +172,8 @@ public func randContUniforms(min: Double, max: Double, sampleLength: Int) -> [Do
 
 /*Generates single pseudorandom variable from beta distribution.
 
-:param: shape1 First shape parameter. Should be > 0.
-:param: shape2 Second shape parameter. Should be > 0.
+:param: shape1 First shape parameter. Must be > 0.
+:param: shape2 Second shape parameter. Must be > 0.
 
 :returns: Single pseudorandom variable from beta distribution with given shapes.
 */
@@ -194,8 +194,8 @@ public func randBeta(shape1: Double, shape2: Double) -> Double {
 /**
 Generates array of independent pseudorandom variables from beta distribution.
 
-:param: shape1 First shape parameter. Should be > 0.
-:param: shape2 Second shape parameter. Should be > 0.
+:param: shape1 First shape parameter. Must be > 0.
+:param: shape2 Second shape parameter. Must be > 0.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of independent pseudorandom variables from beta distribution with given shapes.
@@ -211,7 +211,7 @@ public func randBetas(shape1: Double, shape2: Double, sampleLength: Int) -> [Dou
 Generates single pseudorandom variable from exponential distribution.
 Function uses inverse transform sampling.
 
-:param: rate Rate parameter of exponential distribution. Should be > 0.
+:param: rate Rate parameter of exponential distribution. Must be > 0.
 
 :returns: Single pseudorandom variable from exponential distribution with given rate.
 */
@@ -224,7 +224,7 @@ public func randExp(rate: Double) -> Double {
 Generates array of independent pseudorandom variables from exponential distribution.
 Function uses inverse transform sampling.
 
-:param: rate Rate parameter of exponential distribution. Should be > 0.
+:param: rate Rate parameter of exponential distribution. Must be > 0.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of independent pseudorandom variables from exponential distribution with given rate.
@@ -239,8 +239,8 @@ public func randExps(rate: Double, sampleLength: Int) -> [Double] {
 /**
 Generates single pseudorandom variable from gamma distribution.
 
-:param: shape Shape of gamma distribution. Should be > 0.
-:param: rate Rate of gamma distribution. Should be > 0.
+:param: shape Shape of gamma distribution. Must be > 0.
+:param: rate Rate of gamma distribution. Must be > 0.
 
 :returns: Single pseudorandom variable from gamma distribution with given shape and rate.
 */
@@ -264,8 +264,8 @@ public func randGamma(shape: Double, rate: Double) -> Double {
 /**
 Generates array of independent pseudorandom variables from gamma distribution.
 
-:param: shape Shape of gamma distribution. Should be > 0.
-:param: rate Rate of gamma distribution. Should be > 0.
+:param: shape Shape of gamma distribution. Must be > 0.
+:param: rate Rate of gamma distribution. Must be > 0.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of independent pseudorandom variables from gamma distribution with given shape and rate.
@@ -283,7 +283,7 @@ Generates single pseudorandom variable from normal distribution.
 Function uses Box-Muller transform.
 
 :param: mean Mean of normal distribution.
-:param: standardDeviation Standard deviation of normal distribution. Should be > 0.
+:param: standardDeviation Standard deviation of normal distribution. Must be > 0.
 
 :returns: Single pseudorandom variable from normal distribution with given mean and standard deviation.
 */
@@ -303,7 +303,7 @@ Generates array of independent pseudorandom variables from normal distribution.
 Function uses Box-Muller transform.
 
 :param: mean Mean of normal distribution.
-:param: standardDeviation Standard deviation of normal distribution. Should be > 0.
+:param: standardDeviation Standard deviation of normal distribution. Must be > 0.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of independent pseudorandom variables from normal distribution with given mean and standard deviation. 
@@ -346,7 +346,7 @@ public func randNormals(mean: Double, standardDeviation: Double, sampleLength: I
 Generates single pseudorandom variable from lognormal distribution.
 
 :param: location Location parameter of lognormal distribution.
-:param: shape Shape parameter of lognormal distribution. Should be > 0.
+:param: shape Shape parameter of lognormal distribution. Must be > 0.
 
 :returns: Single pseudorandom variable from lognormal distribution with given location and shape.
 */
@@ -359,7 +359,7 @@ public func randLognormal(location: Double, shape: Double) -> Double {
 Generates array of independent pseudorandom variables from lognormal distribution.
 
 :param: location Location parameter of lognormal distribution.
-:param: shape Shape parameter of lognormal distribution. Should be > 0.
+:param: shape Shape parameter of lognormal distribution. Must be > 0.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of independent pseudorandom variables from lognormal distribution with given location and shape.
@@ -374,8 +374,8 @@ public func randLognormals(location: Double, shape: Double, sampleLength: Int) -
 /**
 Generates single pseudorandom variable from Pareto distribution.
 
-:param: scale Scale parameter of Pareto distribution. Should be > 0.
-:param: shape Shape parameter of Pareto distribution. Should be > 0.
+:param: scale Scale parameter of Pareto distribution. Must be > 0.
+:param: shape Shape parameter of Pareto distribution. Must be > 0.
 
 :returns: Single pseudorandom variable from Pareto distribution with given scale and shape.
 */
@@ -387,8 +387,8 @@ public func randPareto(scale: Double, shape: Double) -> Double {
 /**
 Generates array of independent pseudorandom variables from Pareto distribution.
 
-:param: scale Scale parameter of Pareto distribution. Should be > 0.
-:param: shape Shape parameter of Pareto distribution. Should be > 0.
+:param: scale Scale parameter of Pareto distribution. Must be > 0.
+:param: shape Shape parameter of Pareto distribution. Must be > 0.
 :param: sampleLength Length of sample to generate.
 
 :returns: Array of independent pseudorandom variables from Pareto distribution with given scale and shape.
@@ -449,7 +449,7 @@ public func sampleWithoutReplacement<T>(var arrayToSampleFrom: [T], sampleLength
 Generates random sample from given array using weights given by the user.
 
 :param: arrayToSampleFrom The array of any type.
-:param: weights The array of weights.
+:param: weights The array of weights. Weights must be >= 0.
 :param: sampleLength The length of output sample.
 
 :returns: Array of length `sampleLength` with elements sampled from `arrayToSampleFrom` with weights from `weights`.
