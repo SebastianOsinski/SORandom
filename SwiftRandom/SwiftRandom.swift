@@ -398,6 +398,35 @@ public func randParetos(scale: Double, shape: Double, sampleLength: Int) -> [Dou
     return randContUniforms(0, 1, sampleLength).map { scale * pow($0, -1.0 / shape) }
 }
 
+// MARK: - Weibull distribution
+
+/**
+Generates single pseudorandom variable from Weibull distribution.
+
+:param: scale Scale parameter of Weibull distribution. Must be > 0.
+:param: shape Shape parameter of Weibull distribution. Must be > 0.
+
+:returns: Single pseudorandom variable from Weibull distribution with given scale and shape.
+*/
+
+public func randWeibull(scale: Double, shape: Double) -> Double {
+    return 1/scale * pow(-log(randContUniform(0,1)), 1/shape)
+}
+
+/**
+Generates array of independent pseudorandom variables from Weibull distribution.
+
+:param: scale Scale parameter of Weibull distribution. Must be > 0.
+:param: shape Shape parameter of Weibull distribution. Must be > 0.
+:param: sampleLength Length of sample to generate.
+
+:returns: Array of independent pseudorandom variables from Weibull distribution with given scale and shape.
+*/
+
+public func randWeibulls(scale: Double, shape: Double, sampleLength: Int) -> [Double] {
+    return randContUniforms(0, 1, sampleLength).map { 1/scale * pow(-log($0), 1/shape) }
+}
+
 // MARK: - Sampling
 
 /**
