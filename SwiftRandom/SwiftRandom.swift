@@ -427,6 +427,74 @@ public func randWeibulls(scale: Double, shape: Double, sampleLength: Int) -> [Do
     return randContUniforms(0, 1, sampleLength).map { 1/scale * pow(-log($0), 1/shape) }
 }
 
+// MARK: - Stable distribution
+
+/**
+Generates single pseudorandom variable from stable distribution.
+
+:param: stability Stability index of stable distribution. Must be between 0 (exclusive) and 2 (inclusive).
+:param: skewness Skewness parameter of stable distribution. Must be between -1 and 1 (inclusive).
+:param: scale Scale parameter of stable distribution. Muse be > 0.
+:param: location Location parameter of stable distribution.
+
+:returns: Single pseudorandom variable from stable distribution with given parameters.
+
+Might return inf or nan for very small values of `stability`
+*/
+
+public func randStable(stability: Double, skewness: Double, scale: Double, location: Double) -> Double {
+  
+    let v = randContUniform(-M_PI_2, M_PI_2)
+    let w = randExp(1)
+    
+    if stability != 1.0 {
+        let c = atan(skewness * tan(M_PI_2 * stability)) / stability
+        let d = scale * pow(cos(atan(skewness * tan(M_PI_2 * stability))), -1.0 / stability)
+        
+        return d * sin(stability * (v + c)) / pow(cos(v), 1.0 / stability) * pow(cos(v - stability * (v + c)) / w, (1.0 - stability) / stability) + location
+    } else {
+        let a = location + M_2_PI * location * scale * log(scale)
+        let b = log((M_PI_2 * w * cos(v)) / (M_PI_2 + skewness * v))
+        
+        return scale * M_2_PI * ((M_PI_2 + skewness * v) * tan(v) - skewness * b) + a
+    }
+}
+
+/**
+Generates single pseudorandom variable from stable distribution.
+
+:param: stability Stability index of stable distribution. Must be between 0 (exclusive) and 2 (inclusive).
+:param: skewness Skewness parameter of stable distribution. Must be between -1 and 1 (inclusive).
+:param: scale Scale parameter of stable distribution. Muse be > 0.
+:param: location Location parameter of stable distribution.
+:param: sampleLength Length of sample to generate.
+
+:returns: Array of independent pseudorandom variables from stable distribution with given parameters.
+
+Might return `inf` or `nan` for very small values of `stability`
+*/
+
+public func randStables(stability: Double, skewness: Double, scale: Double, location: Double, sampleLength: Int) -> [Double] {
+    
+    let v = randContUniforms(-M_PI_2, M_PI_2, sampleLength)
+    let w = randExps(1, sampleLength)
+    
+    if stability != 1.0 {
+        let c = atan(skewness * tan(M_PI_2 * stability)) / stability
+        let d = scale * pow(cos(atan(skewness * tan(M_PI_2 * stability))), -1.0 / stability)
+        
+        return (0..<sampleLength).map { d * sin(stability * (v[$0] + c)) / pow(cos(v[$0]), 1.0 / stability) * pow(cos(v[$0] - stability * (v[$0] + c)) / w[$0], (1.0 - stability) / stability) + location }
+    } else {
+        let a = location + M_2_PI * location * scale * log(scale)
+        let b = (0..<sampleLength).map { log((M_PI_2 * w[$0] * cos(v[$0])) / (M_PI_2 + skewness * v[$0])) }
+        
+        return (0..<sampleLength).map { scale * M_2_PI * ((M_PI_2 + skewness * v[$0]) * tan(v[$0]) - skewness * b[$0]) + a }
+    }
+
+    //return (0..<sampleLength).map { _ in randStable(stability, skewness, scale, location) }
+}
+
+
 // MARK: - Sampling
 
 /**
@@ -482,7 +550,6 @@ Generates random sample from given array using weights given by the user.
 :param: sampleLength The length of output sample.
 
 :returns: Array of length `sampleLength` with elements sampled from `arrayToSampleFrom` with weights from `weights`.
-
 */
 
 // TODO: Refactor

@@ -20,6 +20,7 @@ SwiftRandom is collection of pseudorandom generators from various statistical di
 	* [Gamma distribution](https://en.wikipedia.org/wiki/Gamma_distribution)
 	* [Beta distribution](https://en.wikipedia.org/wiki/Beta_distribution)
 	* [Normal (Gaussian) distribution](https://en.wikipedia.org/wiki/Normal_distribution)
+	* [Stable distribution](https://en.wikipedia.org/wiki/Stable_distribution)
 	* [Log-normal distribution](https://en.wikipedia.org/wiki/Log-normal_distribution)
 	* [Pareto distribution](https://en.wikipedia.org/?title=Pareto_distribution)
 	* [Weibull distribution](https://en.wikipedia.org/?title=Weibull_distribution)
