@@ -27,7 +27,7 @@ Performs series of independent Bernoulli trials with given probability of succes
 */
 
 public func randBinomials(probabilityOfSuccess: Double, sampleLength: Int) -> [Int] {
-    return (0..<sampleLength).map { _ in randBinomial(probabilityOfSuccess) }
+    return randContUniforms(0, 1, sampleLength).map { Int($0 < probabilityOfSuccess) }
 }
 
 /**
@@ -69,7 +69,7 @@ The probability distribution of the number X of Bernoulli trials needed to get o
 */
 
 public func randGeoms(probabilityOfSuccess: Double, sampleLength: Int) -> [Int] {
-    return (0..<sampleLength).map { _ in randGeom(probabilityOfSuccess) }
+    return randContUniforms(0, 1, sampleLength).map { Int(ceil(log($0)/log(1 - probabilityOfSuccess))) }
 }
 
 // MARK: - Poisson distribution
@@ -231,7 +231,7 @@ Function uses inverse transform sampling.
 */
 
 public func randExps(rate: Double, sampleLength: Int) -> [Double] {
-    return (0..<sampleLength).map { _ in randExp(rate) }
+    return randContUniforms(0, 1, sampleLength).map { -1.0/rate * log($0) }
 }
 
 // MARK: - Gamma distribution
