@@ -31,7 +31,6 @@
 		912784DD1B18C80900DF7C27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		912784E81B18C85300DF7C27 /* SwiftRandom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRandom.swift; sourceTree = "<group>"; };
 		912784EA1B18C85E00DF7C27 /* SwiftRandomTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftRandomTests.swift; sourceTree = "<group>"; };
-		91C2CBC31B1DB03900155A75 /* SwiftRandom.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = SwiftRandom.playground; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +55,6 @@
 		912784C21B18C80900DF7C27 = {
 			isa = PBXGroup;
 			children = (
-				91C2CBC31B1DB03900155A75 /* SwiftRandom.playground */,
 				912784CE1B18C80900DF7C27 /* SwiftRandom */,
 				912784DB1B18C80900DF7C27 /* SwiftRandomTests */,
 				912784CD1B18C80900DF7C27 /* Products */,
@@ -163,8 +161,9 @@
 		912784C31B18C80900DF7C27 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Sebastian Osinski";
 				TargetAttributes = {
 					912784CB1B18C80900DF7C27 = {
@@ -260,6 +259,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -337,6 +337,7 @@
 				INFOPLIST_FILE = SwiftRandom/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sebastianosinski.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -352,6 +353,7 @@
 				INFOPLIST_FILE = SwiftRandom/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sebastianosinski.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -370,6 +372,7 @@
 				);
 				INFOPLIST_FILE = SwiftRandomTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sebastianosinski.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -383,6 +386,7 @@
 				);
 				INFOPLIST_FILE = SwiftRandomTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sebastianosinski.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
