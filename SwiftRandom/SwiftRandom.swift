@@ -485,7 +485,11 @@ public func randStables(stability: Double, _ skewness: Double, _ scale: Double, 
         
         let temp = (1.0 - stability) / stability
         
-        return (0..<sampleLength).map { d * sin(stability * (v[$0] + c)) / pow(cos(v[$0]), 1.0 / stability) * pow(cos(v[$0] - stability * (v[$0] + c)) / w[$0], temp) + location }
+        return (0..<sampleLength).map {
+            let temp2 = sin(stability * (v[$0] + c))
+            let temp3 = cos(v[$0] - stability * (v[$0] + c))
+            return d *  temp2 / pow(cos(v[$0]), 1.0 / stability) * pow(temp3 / w[$0], temp) + location
+        }
     } else {
         let a = location + M_2_PI * location * scale * log(scale)
         let b = (0..<sampleLength).map { log((M_PI_2 * w[$0] * cos(v[$0])) / (M_PI_2 + skewness * v[$0])) }
