@@ -80,7 +80,7 @@ The probability distribution of the number X of Bernoulli trials needed to get o
 */
 
 public func randGeom(probabilityOfSuccess: Double) -> Int {
-    return Int(ceil(log(randContUniform(0, 1))/log(1 - probabilityOfSuccess)))
+    return Int(ceil(log(randContUniform(0, 1)) / log(1 - probabilityOfSuccess)))
 }
 
 /**
@@ -94,7 +94,7 @@ The probability distribution of the number X of Bernoulli trials needed to get o
 */
 
 public func randGeoms(probabilityOfSuccess: Double, _ sampleLength: Int) -> [Int] {
-    return randContUniforms(0, 1, sampleLength).map { Int(ceil(log($0)/log(1 - probabilityOfSuccess))) }
+    return randContUniforms(0, 1, sampleLength).map { Int(ceil(log($0) / log(1 - probabilityOfSuccess))) }
 }
 
 // MARK: - Poisson distribution
@@ -113,7 +113,7 @@ public func randPoisson(lambda: Double) -> Int {
     let u = randContUniform(0, 1)
     
     while u > cdf {
-        prob *= lambda/Double(k+1)
+        prob *= lambda / Double(k+1)
         cdf += prob
         k += 1
     }
@@ -205,13 +205,13 @@ public func randContUniforms(min: Double, _ max: Double, _ sampleLength: Int) ->
 
 public func randBeta(shape1: Double, _ shape2: Double) -> Double {
     
-    let maxValue = pow((shape1 - 1)/(shape1 + shape2 - 2), shape1 - 1) * pow((shape2 - 1)/(shape1 + shape2 - 2), shape2 - 1)
+    let maxValue = pow((shape1 - 1) / (shape1 + shape2 - 2), shape1 - 1) * pow((shape2 - 1) / (shape1 + shape2 - 2), shape2 - 1)
     var u1, u2: Double
     
     repeat {
         u1 = randContUniform(0.0, 1.0)
         u2 = randContUniform(0.0, maxValue)
-    } while u2 > pow(u1, shape1 - 1)*pow(u1, shape2 - 1)
+    } while u2 > pow(u1, shape1 - 1) * pow(u1, shape2 - 1)
     
     return u1
 }
@@ -242,7 +242,7 @@ Function uses inverse transform sampling.
 */
 
 public func randExp(rate: Double) -> Double {
-    return -1.0/rate * log(randContUniform(0, 1))
+    return -1.0 / rate * log(randContUniform(0, 1))
 }
 
 /**
@@ -256,7 +256,7 @@ Function uses inverse transform sampling.
 */
 
 public func randExps(rate: Double, _ sampleLength: Int) -> [Double] {
-    return randContUniforms(0, 1, sampleLength).map { -1.0/rate * log($0) }
+    return randContUniforms(0, 1, sampleLength).map { -1.0 / rate * log($0) }
 }
 
 // MARK: - Gamma distribution
@@ -280,7 +280,7 @@ public func randGamma(shape: Double, _ rate: Double) -> Double {
     repeat {
         u = randContUniform(0.0, 1.0)
         temp = randExp(lambda)
-    } while exp((shape-1.0) * (1 - lambda * temp)) < u
+    } while exp((shape - 1.0) * (1 - lambda * temp)) < u
     
     return temp
 }
@@ -337,7 +337,7 @@ Function uses Box-Muller transform.
 // TODO: Refactor
 public func randNormals(mean: Double, _ standardDeviation: Double, _ sampleLength: Int) -> [Double] {
     
-    let numberOfPairs: Int = sampleLength/2
+    let numberOfPairs: Int = sampleLength / 2
     let u1 = randContUniforms(0, 1, numberOfPairs)
     let u2 = randContUniforms(0, 1, numberOfPairs)
     
@@ -358,7 +358,7 @@ public func randNormals(mean: Double, _ standardDeviation: Double, _ sampleLengt
         k += 1
     }
     
-    if(sampleLength%2 == 1){
+    if sampleLength % 2 == 1 {
         randomSample[sampleLength - 1] = randNormal(mean, standardDeviation)
     }
     
@@ -435,7 +435,7 @@ Generates single pseudorandom variable from Weibull distribution.
 */
 
 public func randWeibull(scale: Double, _ shape: Double) -> Double {
-    return 1/scale * pow(-log(randContUniform(0, 1)), 1/shape)
+    return 1 / scale * pow(-log(randContUniform(0, 1)), 1 / shape)
 }
 
 /**
@@ -449,7 +449,7 @@ Generates array of independent pseudorandom variables from Weibull distribution.
 */
 
 public func randWeibulls(scale: Double, _ shape: Double, _ sampleLength: Int) -> [Double] {
-    return randContUniforms(0, 1, sampleLength).map { 1/scale * pow(-log($0), 1/shape) }
+    return randContUniforms(0, 1, sampleLength).map { 1 / scale * pow(-log($0), 1 / shape) }
 }
 
 // MARK: - Stable distribution
