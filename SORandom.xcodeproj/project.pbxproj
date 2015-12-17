@@ -11,6 +11,12 @@
 		912784E91B18C85300DF7C27 /* SORandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912784E81B18C85300DF7C27 /* SORandom.swift */; };
 		918928131C22325400E9E9FC /* SORandom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 912784CC1B18C80900DF7C27 /* SORandom.framework */; };
 		91B685C81C22333600FA939C /* SORandomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912784EA1B18C85E00DF7C27 /* SORandomTests.swift */; };
+		91B686721C2331E800FA939C /* SORandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912784E81B18C85300DF7C27 /* SORandom.swift */; };
+		91B686731C2331E900FA939C /* SORandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912784E81B18C85300DF7C27 /* SORandom.swift */; };
+		91B686741C2331E900FA939C /* SORandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912784E81B18C85300DF7C27 /* SORandom.swift */; };
+		91B686751C2331ED00FA939C /* SORandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 912784D11B18C80900DF7C27 /* SORandom.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		91B686761C2331EE00FA939C /* SORandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 912784D11B18C80900DF7C27 /* SORandom.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		91B686771C2331EE00FA939C /* SORandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 912784D11B18C80900DF7C27 /* SORandom.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +37,9 @@
 		912784E81B18C85300DF7C27 /* SORandom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SORandom.swift; sourceTree = "<group>"; };
 		912784EA1B18C85E00DF7C27 /* SORandomTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SORandomTests.swift; sourceTree = "<group>"; };
 		9189280E1C22325400E9E9FC /* SORandomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SORandomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		91B686501C23316900FA939C /* SORandom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SORandom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		91B6865D1C23318A00FA939C /* SORandom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SORandom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		91B6866A1C2331AD00FA939C /* SORandom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SORandom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +55,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				918928131C22325400E9E9FC /* SORandom.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91B6864C1C23316900FA939C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91B686591C23318A00FA939C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91B686661C2331AD00FA939C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +96,9 @@
 			children = (
 				912784CC1B18C80900DF7C27 /* SORandom.framework */,
 				9189280E1C22325400E9E9FC /* SORandomTests.xctest */,
+				91B686501C23316900FA939C /* SORandom.framework */,
+				91B6865D1C23318A00FA939C /* SORandom.framework */,
+				91B6866A1C2331AD00FA939C /* SORandom.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,12 +149,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		91B6864D1C23316900FA939C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91B686751C2331ED00FA939C /* SORandom.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91B6865A1C23318A00FA939C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91B686761C2331EE00FA939C /* SORandom.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91B686671C2331AD00FA939C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91B686771C2331EE00FA939C /* SORandom.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		912784CB1B18C80900DF7C27 /* SORandom */ = {
+		912784CB1B18C80900DF7C27 /* SORandom iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 912784E21B18C80900DF7C27 /* Build configuration list for PBXNativeTarget "SORandom" */;
+			buildConfigurationList = 912784E21B18C80900DF7C27 /* Build configuration list for PBXNativeTarget "SORandom iOS" */;
 			buildPhases = (
 				912784C71B18C80900DF7C27 /* Sources */,
 				912784C81B18C80900DF7C27 /* Frameworks */,
@@ -132,7 +189,7 @@
 			);
 			dependencies = (
 			);
-			name = SORandom;
+			name = "SORandom iOS";
 			productName = SwiftRandom;
 			productReference = 912784CC1B18C80900DF7C27 /* SORandom.framework */;
 			productType = "com.apple.product-type.framework";
@@ -155,6 +212,60 @@
 			productReference = 9189280E1C22325400E9E9FC /* SORandomTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		91B6864F1C23316900FA939C /* SORandom OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91B686551C23316900FA939C /* Build configuration list for PBXNativeTarget "SORandom OSX" */;
+			buildPhases = (
+				91B6864B1C23316900FA939C /* Sources */,
+				91B6864C1C23316900FA939C /* Frameworks */,
+				91B6864D1C23316900FA939C /* Headers */,
+				91B6864E1C23316900FA939C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SORandom OSX";
+			productName = "SORandom OSX";
+			productReference = 91B686501C23316900FA939C /* SORandom.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		91B6865C1C23318A00FA939C /* SORandom watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91B686621C23318A00FA939C /* Build configuration list for PBXNativeTarget "SORandom watchOS" */;
+			buildPhases = (
+				91B686581C23318A00FA939C /* Sources */,
+				91B686591C23318A00FA939C /* Frameworks */,
+				91B6865A1C23318A00FA939C /* Headers */,
+				91B6865B1C23318A00FA939C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SORandom watchOS";
+			productName = "SORandom watchOS";
+			productReference = 91B6865D1C23318A00FA939C /* SORandom.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		91B686691C2331AD00FA939C /* SORandom tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91B6866F1C2331AD00FA939C /* Build configuration list for PBXNativeTarget "SORandom tvOS" */;
+			buildPhases = (
+				91B686651C2331AD00FA939C /* Sources */,
+				91B686661C2331AD00FA939C /* Frameworks */,
+				91B686671C2331AD00FA939C /* Headers */,
+				91B686681C2331AD00FA939C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SORandom tvOS";
+			productName = "SORandom tvOS";
+			productReference = 91B6866A1C2331AD00FA939C /* SORandom.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -173,6 +284,17 @@
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = GJF586P7E7;
 					};
+					91B6864F1C23316900FA939C = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					91B6865C1C23318A00FA939C = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = GJF586P7E7;
+					};
+					91B686691C2331AD00FA939C = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = GJF586P7E7;
+					};
 				};
 			};
 			buildConfigurationList = 912784C61B18C80900DF7C27 /* Build configuration list for PBXProject "SORandom" */;
@@ -187,7 +309,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				912784CB1B18C80900DF7C27 /* SORandom */,
+				912784CB1B18C80900DF7C27 /* SORandom iOS */,
+				91B6864F1C23316900FA939C /* SORandom OSX */,
+				91B6865C1C23318A00FA939C /* SORandom watchOS */,
+				91B686691C2331AD00FA939C /* SORandom tvOS */,
 				9189280D1C22325400E9E9FC /* SORandomTests */,
 			);
 		};
@@ -202,6 +327,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9189280C1C22325400E9E9FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91B6864E1C23316900FA939C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91B6865B1C23318A00FA939C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91B686681C2331AD00FA939C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -227,12 +373,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		91B6864B1C23316900FA939C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91B686721C2331E800FA939C /* SORandom.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91B686581C23318A00FA939C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91B686731C2331E900FA939C /* SORandom.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91B686651C2331AD00FA939C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91B686741C2331E900FA939C /* SORandom.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		918928151C22325400E9E9FC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 912784CB1B18C80900DF7C27 /* SORandom */;
+			target = 912784CB1B18C80900DF7C27 /* SORandom iOS */;
 			targetProxy = 918928141C22325400E9E9FC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -337,8 +507,9 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = SORandom/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sebastianosinski.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sebastianosinski.SORandom;
 				PRODUCT_NAME = SORandom;
 				SKIP_INSTALL = YES;
 			};
@@ -353,8 +524,9 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = SORandom/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sebastianosinski.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sebastianosinski.SORandom;
 				PRODUCT_NAME = SORandom;
 				SKIP_INSTALL = YES;
 			};
@@ -383,6 +555,129 @@
 			};
 			name = Release;
 		};
+		91B686561C23316900FA939C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "$(SRCROOT)/SORandom/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "xyz.osinski.SORandom-OSX";
+				PRODUCT_NAME = SORandom;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		91B686571C23316900FA939C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "$(SRCROOT)/SORandom/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "xyz.osinski.SORandom-OSX";
+				PRODUCT_NAME = SORandom;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		91B686631C23318A00FA939C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "SORandom watchOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "xyz.osinski.SORandom-watchOS";
+				PRODUCT_NAME = SORandom;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Debug;
+		};
+		91B686641C23318A00FA939C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "SORandom watchOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "xyz.osinski.SORandom-watchOS";
+				PRODUCT_NAME = SORandom;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Release;
+		};
+		91B686701C2331AD00FA939C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/SORandom/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "xyz.osinski.SORandom-tvOS";
+				PRODUCT_NAME = SORandom;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Debug;
+		};
+		91B686711C2331AD00FA939C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/SORandom/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "xyz.osinski.SORandom-tvOS";
+				PRODUCT_NAME = SORandom;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -395,7 +690,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		912784E21B18C80900DF7C27 /* Build configuration list for PBXNativeTarget "SORandom" */ = {
+		912784E21B18C80900DF7C27 /* Build configuration list for PBXNativeTarget "SORandom iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				912784E31B18C80900DF7C27 /* Debug */,
@@ -412,6 +707,30 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		91B686551C23316900FA939C /* Build configuration list for PBXNativeTarget "SORandom OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91B686561C23316900FA939C /* Debug */,
+				91B686571C23316900FA939C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		91B686621C23318A00FA939C /* Build configuration list for PBXNativeTarget "SORandom watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91B686631C23318A00FA939C /* Debug */,
+				91B686641C23318A00FA939C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		91B6866F1C2331AD00FA939C /* Build configuration list for PBXNativeTarget "SORandom tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91B686701C2331AD00FA939C /* Debug */,
+				91B686711C2331AD00FA939C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

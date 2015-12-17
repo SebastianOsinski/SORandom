@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "912784CB1B18C80900DF7C27"
                BuildableName = "SORandom.framework"
-               BlueprintName = "SORandom"
+               BlueprintName = "SORandom iOS"
                ReferencedContainer = "container:SORandom.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,7 +47,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "912784CB1B18C80900DF7C27"
             BuildableName = "SORandom.framework"
-            BlueprintName = "SORandom"
+            BlueprintName = "SORandom iOS"
             ReferencedContainer = "container:SORandom.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,7 +65,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "912784CB1B18C80900DF7C27"
             BuildableName = "SORandom.framework"
-            BlueprintName = "SORandom"
+            BlueprintName = "SORandom iOS"
             ReferencedContainer = "container:SORandom.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
