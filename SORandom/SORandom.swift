@@ -1,5 +1,3 @@
-import Foundation
-
 ///  Collection of psuedorandom generators from various statistical distributions.
 
 
