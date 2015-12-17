@@ -1,11 +1,27 @@
 #SORandom
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://mit-license.org)
-[![Language](https://img.shields.io/badge/language-swift-orange.svg)](https://developer.apple.com/swift)
-[![Platform](https://img.shields.io/badge/platform-iOS%20%26%20OS%20X-lightgrey.svg
-)](https://developer.apple.com/resources/)
 
+[![Version](https://img.shields.io/cocoapods/v/SORandom.svg?style=flat)](http://cocoapods.org/pods/SORandom)
+[![License](https://img.shields.io/cocoapods/l/SORandom.svg?style=flat)](http://cocoapods.org/pods/SORandom)
+[![Platform](https://img.shields.io/cocoapods/p/SORandom.svg?style=flat)](http://cocoapods.org/pods/SORandom)
 
 SORandom is collection of pseudorandom generators from various statistical distributions and functions for pseudorandom array sampling.
+
+## Installation
+
+SORandom is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod "SORandom"
+```
+
+## Author
+
+Sebastian Osiński, seb.osinski@gmail.com
+
+## License
+
+SORandom is available under the MIT license. See the LICENSE file for more info.
 
 ##Available psuedorandom generators:
 
