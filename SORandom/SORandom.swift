@@ -115,7 +115,7 @@ public func randPoisson(lambda: Double) -> Int {
     while u > cdf {
         prob *= lambda/Double(k+1)
         cdf += prob
-        k++
+        k += 1
     }
     return k
 }
@@ -353,9 +353,9 @@ public func randNormals(mean: Double, _ standardDeviation: Double, _ sampleLengt
         theta = 2.0 * M_PI * u2[i]
         
         randomSample[k] = standardDeviation * (sqrt(r2) * cos(theta)) + mean
-        k++
+        k += 1
         randomSample[k] = standardDeviation * (sqrt(r2) * sin(theta)) + mean
-        k++
+        k += 1
     }
     
     if(sampleLength%2 == 1){
@@ -596,7 +596,7 @@ public func sampleWithWeights<T>(arrayToSampleFrom: [T], _ weights: [Double], _ 
         let r = randContUniform(0.0, sumOfWeights)
         
         while r > currentSumOfWeights {
-            k++
+            k += 1
             currentSumOfWeights += weights[k]
         }
         randomSample.append(arrayToSampleFrom[k])
